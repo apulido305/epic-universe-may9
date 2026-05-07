@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Epic Universe · May 9 Battle Plan</title>
+<style>
+:root {
+  --bg:     #0C0C0F;
+  --bg2:    #14141A;
+  --bg3:    #1C1C25;
+  --gold:   #E8B84B;
+  --red:    #E84B4B;
+  --blue:   #4B9CE8;
+  --green:  #4BE87A;
+  --purple: #9B4BE8;
+  --text:   #F0F0F0;
+  --muted:  #888;
+  --border: rgba(255,255,255,0.08);
+  --radius: 12px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  min-height: 100vh;
+  padding-bottom: 80px;
+}
+
+/* ── MODAL ─────────────────────────────────────────── */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.88);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1000; padding: 20px;
+}
+.modal-overlay.hidden { display: none; }
+
+.modal-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 32px 24px;
+  max-width: 360px; width: 100%;
+  text-align: center;
+}
+.modal-emoji { font-size: 48px; line-height: 1; margin-bottom: 8px; }
+.modal-card h1 { font-size: 24px; font-weight: 800; color: var(--gold); margin-bottom: 4px; }
+.modal-card .subtitle { color: var(--muted); font-size: 13px; margin-bottom: 28px; }
+
+.form-group { margin-bottom: 20px; text-align: left; }
+.form-group label {
+  display: block; font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .09em; color: var(--muted); margin-bottom: 8px;
+}
+.form-group input {
+  width: 100%; background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 10px; padding: 12px 16px; color: var(--text);
+  font-size: 16px; outline: none; transition: border-color .2s;
+}
+.form-group input:focus { border-color: var(--gold); }
+
+.group-picker { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.group-btn {
+  padding: 16px 8px; border-radius: 12px; border: 2px solid var(--border);
+  background: var(--bg3); color: var(--text); font-size: 13px; font-weight: 700;
+  cursor: pointer; transition: all .2s;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+}
+.group-btn .gb-icon { font-size: 26px; }
+.group-btn.thrill:hover, .group-btn.thrill.active {
+  border-color: var(--red); background: rgba(232,75,75,.1); color: var(--red);
+}
+.group-btn.chill:hover, .group-btn.chill.active {
+  border-color: var(--blue); background: rgba(75,156,232,.1); color: var(--blue);
+}
+
+.join-btn {
+  width: 100%; padding: 15px; border-radius: 12px; border: none;
+  background: var(--gold); color: #000; font-size: 16px; font-weight: 800;
+  cursor: pointer; margin-top: 4px; transition: opacity .2s, transform .1s;
+}
+.join-btn:hover:not(:disabled) { transform: scale(1.02); }
+.join-btn:disabled { opacity: .3; cursor: not-allowed; }
+
+/* ── STICKY HEADER ──────────────────────────────────── */
+.sticky-header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(12,12,15,.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 16px 10px;
+}
+
+.progress-row {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 10px;
+}
+.progress-stat { text-align: center; }
+.p-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: 2px; }
+.p-value { font-size: 20px; font-weight: 800; line-height: 1; margin-bottom: 4px; }
+.p-value.gold  { color: var(--gold); }
+.p-value.red   { color: var(--red); }
+.p-value.blue  { color: var(--blue); }
+.p-track { height: 4px; background: var(--bg3); border-radius: 99px; overflow: hidden; }
+.p-fill  { height: 100%; border-radius: 99px; transition: width .6s ease; }
+.p-fill.gold  { background: var(--gold); }
+.p-fill.red   { background: var(--red); }
+.p-fill.blue  { background: var(--blue); }
+
+.online-row {
+  display: flex; align-items: center; justify-content: center;
+  gap: 6px; flex-wrap: wrap;
+}
+.online-label { font-size: 11px; color: var(--muted); }
+.avatar {
+  width: 26px; height: 26px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 800; flex-shrink: 0;
+  border: 1.5px solid transparent;
+}
+.avatar.thrill { background: rgba(232,75,75,.2); color: var(--red); border-color: var(--red); }
+.avatar.chill  { background: rgba(75,156,232,.2); color: var(--blue); border-color: var(--blue); }
+.avatar.sm { width: 20px; height: 20px; font-size: 9px; }
+
+/* ── MEETUP BANNER ──────────────────────────────────── */
+.meetup-banner {
+  background: rgba(232,184,75,.07);
+  border-bottom: 1px solid rgba(232,184,75,.2);
+  padding: 10px 16px;
+  display: flex; align-items: center; gap: 12px;
+}
+.meetup-banner.hidden { display: none; }
+.meetup-icon { font-size: 20px; flex-shrink: 0; }
+.meetup-label { font-weight: 700; color: var(--gold); font-size: 13px; }
+.meetup-detail { font-size: 12px; color: var(--muted); margin-top: 1px; }
+
+/* ── SETUP NOTICE ───────────────────────────────────── */
+.setup-notice {
+  margin: 20px 16px;
+  background: var(--bg2);
+  border: 1px dashed rgba(232,184,75,.35);
+  border-radius: 14px;
+  padding: 20px;
+}
+.setup-notice h3 { color: var(--gold); font-size: 15px; margin-bottom: 10px; }
+.setup-notice p  { color: var(--muted); font-size: 13px; margin-bottom: 10px; line-height: 1.6; }
+.setup-notice ol { padding-left: 18px; color: var(--muted); font-size: 13px; line-height: 2.1; }
+.setup-notice code {
+  background: var(--bg3); padding: 2px 7px; border-radius: 5px;
+  font-size: 12px; color: var(--gold); font-family: monospace;
+}
+.setup-notice.hidden { display: none; }
+
+/* ── TIMELINE ───────────────────────────────────────── */
+.timeline { padding-bottom: 20px; }
+
+.section { padding: 24px 16px 0; }
+
+.section-head {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 14px;
+}
+.time-badge {
+  background: var(--gold); color: #000;
+  font-size: 11px; font-weight: 800; padding: 3px 9px; border-radius: 6px;
+  white-space: nowrap;
+}
+.section-title { font-size: 17px; font-weight: 800; flex: 1; min-width: 120px; }
+
+.land-badge { font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 6px; }
+.land-nintendo { background: rgba(232,75,75,.18); color: #ff6b6b; }
+.land-berk     { background: rgba(75,232,122,.18); color: #4be87a; }
+.land-dark     { background: rgba(155,75,232,.18); color: #b56bf5; }
+.land-celestial{ background: rgba(75,156,232,.18); color: var(--blue); }
+.land-potter   { background: rgba(232,184,75,.18); color: var(--gold); }
+
+.group-tag { font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 6px; }
+.group-tag.everyone { background: rgba(232,184,75,.12); color: var(--gold); }
+
+/* ── MEETUP BOX ─────────────────────────────────────── */
+.meetup-box {
+  background: rgba(232,184,75,.07);
+  border: 1px solid rgba(232,184,75,.2);
+  border-radius: 10px; padding: 12px 14px; margin-bottom: 14px;
+}
+.meetup-box-title { color: var(--gold); font-weight: 700; font-size: 14px; margin-bottom: 3px; }
+.meetup-box-loc   { color: var(--muted); font-size: 12px; }
+
+/* ── ITEMS ──────────────────────────────────────────── */
+.items-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+
+.item-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 11px; padding: 12px 14px;
+  display: flex; align-items: flex-start; gap: 12px;
+  cursor: pointer; transition: border-color .2s, background .15s;
+  user-select: none; -webkit-user-select: none;
+}
+.item-card:active { background: var(--bg3); }
+.item-card.everyone  { border-left: 3px solid rgba(232,184,75,.6); }
+.item-card.thrill    { border-left: 3px solid rgba(232,75,75,.6); }
+.item-card.chill     { border-left: 3px solid rgba(75,156,232,.6); }
+.item-card.readonly  { cursor: default; opacity: .65; }
+.item-card.readonly:active { background: var(--bg2); }
+
+.checkbox {
+  width: 23px; height: 23px; border-radius: 7px;
+  border: 2px solid var(--border); display: flex;
+  align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 1px; transition: all .2s;
+}
+.item-card.everyone  .checkbox { border-color: rgba(232,184,75,.45); }
+.item-card.thrill    .checkbox { border-color: rgba(232,75,75,.45); }
+.item-card.chill     .checkbox { border-color: rgba(75,156,232,.45); }
+
+.checkbox.checked { }
+.item-card.everyone  .checkbox.checked { background: var(--gold); border-color: var(--gold); }
+.item-card.thrill    .checkbox.checked { background: var(--red);  border-color: var(--red); }
+.item-card.chill     .checkbox.checked { background: var(--blue); border-color: var(--blue); }
+
+.checkmark { color: #000; font-size: 13px; font-weight: 900; display: none; }
+.checkbox.checked .checkmark { display: block; }
+
+.item-body { flex: 1; min-width: 0; }
+.item-text { font-size: 14px; font-weight: 600; line-height: 1.4; }
+.item-card.done .item-text { text-decoration: line-through; opacity: .5; }
+.item-note { font-size: 12px; color: var(--muted); margin-top: 2px; line-height: 1.4; }
+.item-checkers { display: flex; gap: 4px; margin-top: 7px; flex-wrap: wrap; }
+
+/* ── SPLIT GRID ─────────────────────────────────────── */
+.split-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px;
+}
+@media (max-width: 480px) { .split-grid { grid-template-columns: 1fr; } }
+
+.split-col { background: var(--bg2); border-radius: 12px; padding: 14px; }
+.split-col-head {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 12px; font-size: 13px; font-weight: 800;
+}
+.split-col-head.thrill { color: var(--red); }
+.split-col-head.chill  { color: var(--blue); }
+.split-col .items-list { margin-bottom: 0; }
+
+/* ── DIVIDER ────────────────────────────────────────── */
+.divider { height: 1px; background: var(--border); margin: 0 16px; margin-top: 24px; }
+
+/* ── TOAST ──────────────────────────────────────────── */
+.toast {
+  position: fixed; bottom: 24px; left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 10px; padding: 10px 20px; font-size: 13px;
+  z-index: 500; transition: transform .3s; white-space: nowrap;
+  pointer-events: none;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- ══ ONBOARDING MODAL ══════════════════════════════════════════ -->
+<div id="modal" class="modal-overlay">
+  <div class="modal-card">
+    <div class="modal-emoji">🎢</div>
+    <h1>Epic Universe</h1>
+    <p class="subtitle">Battle Plan · May 9, 2026 · 4 People</p>
+
+    <div class="form-group">
+      <label>Your Name</label>
+      <input type="text" id="nameInput" placeholder="Enter your name" maxlength="20" autocomplete="off" autocapitalize="words">
+    </div>
+
+    <div class="form-group">
+      <label>Your Group</label>
+      <div class="group-picker">
+        <button class="group-btn thrill" id="btnThrill">
+          <span class="gb-icon">🎢</span>Thrill Duo
+        </button>
+        <button class="group-btn chill" id="btnChill">
+          <span class="gb-icon">🌿</span>Chill Group
+        </button>
+      </div>
+    </div>
+
+    <button class="join-btn" id="joinBtn" disabled>Let's Go! 🚀</button>
+  </div>
+</div>
+
+<!-- ══ STICKY HEADER ═════════════════════════════════════════════ -->
+<header class="sticky-header">
+  <div class="progress-row">
+    <div class="progress-stat">
+      <div class="p-label">You</div>
+      <div class="p-value gold" id="myPct">—</div>
+      <div class="p-track"><div class="p-fill gold" id="myBar" style="width:0%"></div></div>
+    </div>
+    <div class="progress-stat">
+      <div class="p-label">🎢 Thrill</div>
+      <div class="p-value red" id="thrillPct">—</div>
+      <div class="p-track"><div class="p-fill red" id="thrillBar" style="width:0%"></div></div>
+    </div>
+    <div class="progress-stat">
+      <div class="p-label">🌿 Chill</div>
+      <div class="p-value blue" id="chillPct">—</div>
+      <div class="p-track"><div class="p-fill blue" id="chillBar" style="width:0%"></div></div>
+    </div>
+  </div>
+  <div class="online-row" id="onlineRow">
+    <span class="online-label">Join to see who's online</span>
+  </div>
+</header>
+
+<!-- ══ MEETUP BANNER ═════════════════════════════════════════════ -->
+<div id="meetupBanner" class="meetup-banner hidden">
+  <span class="meetup-icon">📍</span>
+  <div>
+    <div class="meetup-label" id="meetupLabel"></div>
+    <div class="meetup-detail" id="meetupDetail"></div>
+  </div>
+</div>
+
+<!-- ══ FIREBASE SETUP NOTICE ═════════════════════════════════════ -->
+<div id="setupNotice" class="setup-notice">
+  <h3>⚙️ Firebase Setup Required (one-time, ~5 min)</h3>
+  <p>Replace the <code>firebaseConfig</code> placeholder in this file's &lt;script&gt; to enable real-time sync across everyone's phones.</p>
+  <ol>
+    <li>Go to <strong>console.firebase.google.com</strong> → Create project</li>
+    <li>Project Settings → Add Web App → copy <code>firebaseConfig</code></li>
+    <li>Build → Realtime Database → Create database → <strong>Test mode</strong></li>
+    <li>Paste your config into the <code>&lt;script&gt;</code> at the bottom of this file</li>
+    <li>Push to your GitHub Pages repo and share the link!</li>
+  </ol>
+</div>
+
+<!-- ══ TIMELINE ══════════════════════════════════════════════════ -->
+<div class="timeline" id="timeline"></div>
+
+<!-- ══ TOAST ═════════════════════════════════════════════════════ -->
+<div class="toast" id="toast"></div>
+
+<!-- ══ SCRIPT ════════════════════════════════════════════════════ -->
+<script type="module">
+// ================================================================
+//  FIREBASE CONFIG
+//  Replace this object with your config from Firebase Console.
+//  Steps:
+//    1. console.firebase.google.com → Create project
+//    2. Project Settings → Add Web App → copy firebaseConfig
+//    3. Build → Realtime Database → Create database → Test mode
+//    4. Save this file and push to GitHub Pages
+// ================================================================
+const firebaseConfig = {
+  apiKey:            "AIzaSyAI3TxU6pRO9KwBpJACAVcaY2p7T9jgb68",
+  authDomain:        "universal-trip.firebaseapp.com",
+  databaseURL:       "https://universal-trip-default-rtdb.firebaseio.com",
+  projectId:         "universal-trip",
+  storageBucket:     "universal-trip.firebasestorage.app",
+  messagingSenderId: "430989092403",
+  appId:             "1:430989092403:web:8efc97a6a02e12a6952546"
+};
+
+// ================================================================
+//  CHECKLIST DATA
+// ================================================================
+const SECTIONS = [
+  {
+    id: 'prePark', time: '7:45 AM', title: 'Pre-Park & Shuttle',
+    type: 'everyone', land: null,
+    items: {
+      everyone: [
+        { id: 'e1', text: 'Power-Up Band activated in app', note: 'Do tonight — critical first step!' },
+        { id: 'e2', text: '8:00 AM shuttle departure', note: '15-min intervals from Dockside Hotel' },
+      ]
+    }
+  },
+  {
+    id: 'earlyEntry', time: '9:00 AM', title: 'Early Entry Ride Block',
+    type: 'everyone', land: 'nintendo',
+    items: {
+      everyone: [
+        { id: 'e3', text: 'Mine-Cart Madness', note: '⚡ Most critical early ride — 118 min avg all day' },
+        { id: 'e4', text: "Mario Kart: Bowser's Challenge", note: 'Saves 75 min vs. joining at 10 AM' },
+        { id: 'e5', text: "Yoshi's Adventure", note: 'Family ride — perfect for everyone together' },
+      ]
+    }
+  },
+  {
+    id: 'nintendo', time: '10:00 AM', title: 'Nintendo Play Block',
+    type: 'everyone', land: 'nintendo',
+    items: {
+      everyone: [
+        { id: 'e6', text: 'Power-Up Band Key Challenges (5 boss encounters)', note: 'Hidden throughout Nintendo World' },
+        { id: 'e7', text: 'Character Meets — Mario, Luigi, Peach, Toad, DK', note: 'Mobile order lunch for 12:45 PM during this block!' },
+      ]
+    }
+  },
+  {
+    id: 'berk', time: '11:00 AM', title: 'Isle of Berk',
+    type: 'everyone', land: 'berk',
+    items: {
+      everyone: [
+        { id: 'e8', text: "Hiccup's Wing Gliders", note: 'Family coaster — 45 mph, How to Train Your Dragon themed' },
+        { id: 'e9', text: "Dragon Racer's Rally", note: 'Individual pods with joysticks — control your dragon!' },
+        { id: 'e10', text: 'Fyre Drill — get absolutely soaked 💦', note: 'Do this LAST before the split' },
+      ]
+    }
+  },
+  {
+    id: 'split', time: '11:30 AM', title: 'The Split',
+    type: 'split', land: null,
+    items: {
+      thrill: [
+        { id: 't1', text: 'Monsters Unchained: The Frankenstein Experiment', note: '19 min avg wait · Walk to Dark Universe (~8 min)' },
+        { id: 't2', text: 'Curse of the Werewolf', note: 'Spinning coaster — usually walk-on right after split!' },
+      ],
+      chill: [
+        { id: 'c1', text: 'Toothless Meet at Haddock Paddock', note: 'Full-size Toothless animatronic — incredible!' },
+        { id: 'c2', text: 'The Untrainable Dragon show', note: '~25 min, air-conditioned. Kids and adults love it.' },
+      ]
+    }
+  },
+  {
+    id: 'lunch', time: '12:45 PM', title: 'Lunch Meetup',
+    type: 'everyone', land: null,
+    meetup: { label: '📍 Meet-Up #1 — Lunch', loc: 'Toadstool Café (Nintendo) · Pizza Moon (Celestial) · Spit Fyre Grill (Berk)' },
+    items: {
+      everyone: [
+        { id: 'e11', text: 'Lunch — everyone back together!', note: 'Toadstool Café · Spit Fyre Grill · Pizza Moon · Mead Hall' },
+      ]
+    }
+  },
+  {
+    id: 'afternoon', time: '1:30 PM', title: 'Afternoon Block',
+    type: 'split', land: null,
+    items: {
+      thrill: [
+        { id: 't3', text: 'Stardust Racers', note: 'Dual-launch coaster · 62 mph · 31 min avg · Celestial Park' },
+        { id: 't4', text: 'Mine-Cart Madness — single rider re-ride', note: '10-30 min single rider vs. 90+ min standby. Big win.' },
+      ],
+      chill: [
+        { id: 'c3', text: 'Viking Training Camp', note: 'Interactive kids area — no queue' },
+        { id: 'c4', text: 'Constellation Carousel', note: 'Milky Way themed · 22 min avg · Celestial Park' },
+        { id: 'c5', text: 'Astronomica Splash Pad', note: 'Interactive water play — no queue, great afternoon cool-down' },
+      ]
+    }
+  },
+  {
+    id: 'dinner', time: '5:30 PM', title: 'Dinner Meetup',
+    type: 'everyone', land: null,
+    meetup: { label: '📍 Meet-Up #2 — Dinner', loc: 'Mead Hall (Berk) · Das Stakehaus (Dark Universe) · The Blue Dragon Pan-Asian' },
+    items: {
+      everyone: [
+        { id: 'e12', text: 'Dinner — everyone back together!', note: 'Mead Hall has the best group atmosphere · Das Stakehaus · Blue Dragon' },
+      ]
+    }
+  },
+  {
+    id: 'evening', time: '8:00 PM', title: 'Evening & Final Sprint',
+    type: 'split', land: null,
+    meetup: { label: '📍 Meet-Up #3 — Celestial Park Fountain', loc: 'Confirm 9:30 PM shuttle plan here. Final meetup before everyone wraps up.' },
+    items: {
+      everyone: [
+        { id: 'e13', text: '8:00 PM meetup at Celestial Park Fountain', note: 'Confirm shuttle plan. Meet-up #3 of 4.' },
+      ],
+      thrill: [
+        { id: 't5', text: 'Battle at the Ministry — queue at 8:45 PM', note: '⚡ CRITICAL: wait drops from 110 → 53 min at 9 PM (57% less based on 950k samples!)' },
+        { id: 't6', text: 'Stardust Racers final lap', note: 'Near walk-on at night — if time allows after Ministry' },
+      ],
+      chill: [
+        { id: 'c6', text: "Mario Kart re-ride — beat your morning score", note: 'Evening waits drop significantly · Nintendo World' },
+      ]
+    }
+  },
+];
+
+const MEETUPS = [
+  { h: 12, m: 45, label: 'Lunch Meetup at 12:45 PM',   loc: 'Toadstool Café (Nintendo World)' },
+  { h: 17, m: 30, label: 'Dinner Meetup at 5:30 PM',   loc: 'Mead Hall (Isle of Berk)' },
+  { h: 20, m:  0, label: 'Fountain Meetup at 8:00 PM', loc: 'Celestial Park Fountain' },
+  { h: 21, m: 30, label: 'Shuttle Home at 9:30 PM',    loc: 'Dockside Hotel Shuttle Stop' },
+];
+
+const LANDS = { nintendo: 'Nintendo World', berk: 'Isle of Berk', dark: 'Dark Universe', celestial: 'Celestial Park', potter: 'Ministry of Magic' };
+
+// Compute all item IDs per group (everyone items count for both)
+function groupItemIds(group) {
+  const ids = [];
+  for (const s of SECTIONS) {
+    if (s.items.everyone) ids.push(...s.items.everyone.map(i => i.id));
+    if (group === 'thrill' && s.items.thrill) ids.push(...s.items.thrill.map(i => i.id));
+    if (group === 'chill'  && s.items.chill)  ids.push(...s.items.chill.map(i => i.id));
+  }
+  return ids;
+}
+const THRILL_IDS = groupItemIds('thrill');
+const CHILL_IDS  = groupItemIds('chill');
+
+// ================================================================
+//  STATE
+// ================================================================
+let myName  = null;
+let myGroup = null;
+let allUsers = {};       // { [name]: { group, items: { [id]: true } } }
+let db, fbRef, fbSet, fbRemove, fbOnValue;
+let firebaseReady = false;
+
+// ================================================================
+//  FIREBASE INIT
+// ================================================================
+const isConfigured = !firebaseConfig.apiKey.startsWith('YOUR_');
+
+if (isConfigured) {
+  document.getElementById('setupNotice').classList.add('hidden');
+  try {
+    const { initializeApp }                         = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js');
+    const { getDatabase, ref, set, remove, onValue } = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
+    const app = initializeApp(firebaseConfig);
+    db = getDatabase(app);
+    fbRef = ref; fbSet = set; fbRemove = remove; fbOnValue = onValue;
+    firebaseReady = true;
+  } catch (e) {
+    console.error('Firebase init failed:', e);
+    showToast('⚠️ Firebase connection failed — offline mode');
+  }
+}
+
+// ================================================================
+//  ONBOARDING MODAL
+// ================================================================
+const nameInput = document.getElementById('nameInput');
+const joinBtn   = document.getElementById('joinBtn');
+const btnThrill = document.getElementById('btnThrill');
+const btnChill  = document.getElementById('btnChill');
+
+nameInput.addEventListener('input', refreshJoinBtn);
+btnThrill.addEventListener('click', () => { myGroup = 'thrill'; btnThrill.classList.add('active'); btnChill.classList.remove('active'); refreshJoinBtn(); });
+btnChill.addEventListener('click',  () => { myGroup = 'chill';  btnChill.classList.add('active');  btnThrill.classList.remove('active'); refreshJoinBtn(); });
+
+function refreshJoinBtn() {
+  joinBtn.disabled = !(nameInput.value.trim() && myGroup);
+}
+
+joinBtn.addEventListener('click', async () => {
+  const name = nameInput.value.trim();
+  if (!name || !myGroup) return;
+  myName = name;
+  localStorage.setItem('epicTrip_name', name);
+  localStorage.setItem('epicTrip_group', myGroup);
+  if (firebaseReady) {
+    await fbSet(fbRef(db, `epic-universe-may9/users/${myName}`), { group: myGroup, items: {} });
+  }
+  document.getElementById('modal').classList.add('hidden');
+  renderTimeline();
+  subscribeToUsers();
+  updateDashboard();
+  updateMeetupBanner();
+});
+
+// ================================================================
+//  RESTORE SESSION FROM LOCALSTORAGE
+// ================================================================
+const savedName  = localStorage.getItem('epicTrip_name');
+const savedGroup = localStorage.getItem('epicTrip_group');
+
+if (savedName && savedGroup) {
+  myName = savedName; myGroup = savedGroup;
+  document.getElementById('modal').classList.add('hidden');
+  renderTimeline();
+  subscribeToUsers();
+  updateDashboard();
+  updateMeetupBanner();
+} else {
+  if (savedName)  nameInput.value = savedName;
+  if (savedGroup) {
+    myGroup = savedGroup;
+    document.getElementById(`btn${savedGroup === 'thrill' ? 'Thrill' : 'Chill'}`).classList.add('active');
+    refreshJoinBtn();
+  }
+}
+
+// ================================================================
+//  FIREBASE SUBSCRIPTION
+// ================================================================
+function subscribeToUsers() {
+  if (!firebaseReady) return;
+  fbOnValue(fbRef(db, 'epic-universe-may9/users'), snap => {
+    allUsers = snap.val() || {};
+    updateDashboard();
+    updateCheckboxes();
+  });
+}
+
+// ================================================================
+//  ITEM TOGGLE
+// ================================================================
+async function toggleItem(itemId, itemGroup) {
+  if (!myName) return;
+  const canCheck = itemGroup === 'everyone' || itemGroup === myGroup;
+  if (!canCheck) return;
+
+  if (!allUsers[myName]) allUsers[myName] = { group: myGroup, items: {} };
+  if (!allUsers[myName].items) allUsers[myName].items = {};
+
+  const nowChecked = !allUsers[myName].items[itemId];
+  if (nowChecked) allUsers[myName].items[itemId] = true;
+  else            delete allUsers[myName].items[itemId];
+
+  updateDashboard();
+  updateCheckboxes();
+
+  if (firebaseReady) {
+    const itemRef = fbRef(db, `epic-universe-may9/users/${myName}/items/${itemId}`);
+    if (nowChecked) await fbSet(itemRef, true);
+    else            await fbRemove(itemRef);
+  } else {
+    // Offline: persist to localStorage
+    localStorage.setItem('epicTrip_offline', JSON.stringify(allUsers[myName].items));
+  }
+}
+
+// ================================================================
+//  RENDER TIMELINE
+// ================================================================
+function renderTimeline() {
+  const tl = document.getElementById('timeline');
+  tl.innerHTML = '';
+
+  for (let i = 0; i < SECTIONS.length; i++) {
+    const s = SECTIONS[i];
+    const el = document.createElement('div');
+    el.className = 'section';
+    el.id = `sec-${s.id}`;
+    el.innerHTML = buildSection(s);
+    tl.appendChild(el);
+    if (i < SECTIONS.length - 1) {
+      const div = document.createElement('div');
+      div.className = 'divider';
+      tl.appendChild(div);
+    }
+  }
+
+  // Event delegation for item clicks
+  tl.addEventListener('click', e => {
+    const card = e.target.closest('.item-card');
+    if (!card || card.classList.contains('readonly')) return;
+    toggleItem(card.dataset.id, card.dataset.group);
+  });
+}
+
+function buildSection(s) {
+  let h = `<div class="section-head">
+    <span class="time-badge">${s.time}</span>
+    <span class="section-title">${s.title}</span>
+    ${s.land ? `<span class="land-badge land-${s.land}">${LANDS[s.land]}</span>` : ''}
+    ${s.type === 'everyone' ? '<span class="group-tag everyone">Everyone</span>' : ''}
+  </div>`;
+
+  if (s.meetup) {
+    h += `<div class="meetup-box">
+      <div class="meetup-box-title">${s.meetup.label}</div>
+      <div class="meetup-box-loc">${s.meetup.loc}</div>
+    </div>`;
+  }
+
+  if (s.type === 'everyone') {
+    h += buildItemList(s.items.everyone, 'everyone');
+  } else {
+    // Everyone items at top (e.g. e13)
+    if (s.items.everyone?.length) h += buildItemList(s.items.everyone, 'everyone');
+
+    h += '<div class="split-grid">';
+    h += `<div class="split-col">
+      <div class="split-col-head thrill">🎢 Thrill Duo</div>
+      ${buildItemList(s.items.thrill || [], 'thrill', true)}
+    </div>`;
+    h += `<div class="split-col">
+      <div class="split-col-head chill">🌿 Chill Group</div>
+      ${buildItemList(s.items.chill || [], 'chill', true)}
+    </div>`;
+    h += '</div>';
+  }
+
+  return h;
+}
+
+function buildItemList(items, itemGroup, inline = false) {
+  const canCheck = !myGroup || itemGroup === 'everyone' || itemGroup === myGroup;
+  const cls = canCheck ? '' : ' readonly';
+  let h = `<div class="items-list${inline ? '' : ''}">`;
+  for (const item of items) {
+    h += `<div class="item-card ${itemGroup}${cls}" data-id="${item.id}" data-group="${itemGroup}" id="card-${item.id}">
+      <div class="checkbox" id="cb-${item.id}"><span class="checkmark">✓</span></div>
+      <div class="item-body">
+        <div class="item-text">${item.text}</div>
+        ${item.note ? `<div class="item-note">${item.note}</div>` : ''}
+        <div class="item-checkers" id="chk-${item.id}"></div>
+      </div>
+    </div>`;
+  }
+  return h + '</div>';
+}
+
+// ================================================================
+//  UPDATE CHECKBOXES FROM STATE
+// ================================================================
+function updateCheckboxes() {
+  for (const s of SECTIONS) {
+    const allItems = [
+      ...(s.items.everyone || []),
+      ...(s.items.thrill   || []),
+      ...(s.items.chill    || []),
+    ];
+    for (const item of allItems) {
+      const cb   = document.getElementById(`cb-${item.id}`);
+      const card = document.getElementById(`card-${item.id}`);
+      const chk  = document.getElementById(`chk-${item.id}`);
+      if (!cb) continue;
+
+      const myChecked = allUsers[myName]?.items?.[item.id] === true;
+      cb.classList.toggle('checked', myChecked);
+      card.classList.toggle('done', myChecked);
+
+      // Show who else checked this item
+      if (chk) {
+        const checkers = Object.entries(allUsers)
+          .filter(([, u]) => u?.items?.[item.id] === true)
+          .map(([n, u]) => ({ name: n, group: u.group }));
+        chk.innerHTML = checkers.map(u =>
+          `<div class="avatar sm ${u.group}" title="${u.name}">${initials(u.name)}</div>`
+        ).join('');
+      }
+    }
+  }
+}
+
+// ================================================================
+//  PROGRESS DASHBOARD
+// ================================================================
+function updateDashboard() {
+  // My progress
+  if (myName && myGroup) {
+    const ids     = myGroup === 'thrill' ? THRILL_IDS : CHILL_IDS;
+    const checked = ids.filter(id => allUsers[myName]?.items?.[id]).length;
+    const pct     = Math.round(checked / ids.length * 100);
+    document.getElementById('myPct').textContent = `${pct}%`;
+    document.getElementById('myBar').style.width = `${pct}%`;
+  }
+
+  // Thrill group
+  const thrillUsers = Object.values(allUsers).filter(u => u.group === 'thrill');
+  if (thrillUsers.length) {
+    const avg = Math.round(
+      thrillUsers.reduce((s, u) => s + THRILL_IDS.filter(id => u.items?.[id]).length / THRILL_IDS.length, 0)
+      / thrillUsers.length * 100
+    );
+    document.getElementById('thrillPct').textContent = `${avg}%`;
+    document.getElementById('thrillBar').style.width = `${avg}%`;
+  }
+
+  // Chill group
+  const chillUsers = Object.values(allUsers).filter(u => u.group === 'chill');
+  if (chillUsers.length) {
+    const avg = Math.round(
+      chillUsers.reduce((s, u) => s + CHILL_IDS.filter(id => u.items?.[id]).length / CHILL_IDS.length, 0)
+      / chillUsers.length * 100
+    );
+    document.getElementById('chillPct').textContent = `${avg}%`;
+    document.getElementById('chillBar').style.width = `${avg}%`;
+  }
+
+  // Online users
+  const row   = document.getElementById('onlineRow');
+  const users = Object.entries(allUsers);
+  if (!users.length) {
+    row.innerHTML = '<span class="online-label">No one online yet</span>';
+  } else {
+    row.innerHTML = users.map(([n, u]) =>
+      `<div class="avatar ${u.group}" title="${n}">${initials(n)}</div>`
+    ).join('') + `<span class="online-label">${users.length} online</span>`;
+  }
+}
+
+// ================================================================
+//  MEETUP BANNER (auto-advances through 4 meetups)
+// ================================================================
+function updateMeetupBanner() {
+  const now = new Date();
+  const cur = now.getHours() * 60 + now.getMinutes();
+  const next = MEETUPS.find(m => m.h * 60 + m.m > cur);
+  const banner = document.getElementById('meetupBanner');
+
+  if (!next) { banner.classList.add('hidden'); return; }
+
+  banner.classList.remove('hidden');
+  const hh = next.h > 12 ? next.h - 12 : (next.h === 0 ? 12 : next.h);
+  const ap = next.h >= 12 ? 'PM' : 'AM';
+  document.getElementById('meetupLabel').textContent = next.label;
+  document.getElementById('meetupDetail').textContent = next.loc;
+
+  setTimeout(updateMeetupBanner, 60_000);
+}
+
+// ================================================================
+//  OFFLINE RESTORE (no Firebase)
+// ================================================================
+if (!firebaseReady && myName) {
+  const saved = localStorage.getItem('epicTrip_offline');
+  if (saved) {
+    allUsers[myName] = { group: myGroup, items: JSON.parse(saved) };
+    updateCheckboxes();
+    updateDashboard();
+  }
+}
+
+// ================================================================
+//  UTILS
+// ================================================================
+function initials(name) {
+  return name.trim().split(/\s+/).map(p => p[0]).join('').toUpperCase().slice(0, 2);
+}
+
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// Kick off meetup banner
+updateMeetupBanner();
+</script>
+</body>
+</html>
