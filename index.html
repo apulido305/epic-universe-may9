@@ -261,6 +261,39 @@ body {
 }
 .toast.show { transform: translateX(-50%) translateY(0); }
 
+/* ── LOCATION PICKER ────────────────────────────────── */
+.loc-picker {
+  background: var(--bg2); border-bottom: 1px solid var(--border);
+  padding: 10px 16px; display: flex; align-items: center; gap: 10px;
+}
+.loc-picker.hidden { display: none; }
+.loc-picker-label { font-size: 11px; font-weight: 700; color: var(--muted); white-space: nowrap; flex-shrink: 0; }
+.loc-pills { display: flex; gap: 7px; overflow-x: auto; padding-bottom: 2px; }
+.loc-pills::-webkit-scrollbar { display: none; }
+.loc-pill {
+  display: flex; align-items: center; gap: 5px;
+  padding: 6px 12px; border-radius: 99px; border: 1.5px solid var(--border);
+  background: var(--bg3); color: var(--muted);
+  font-size: 12px; font-weight: 700; white-space: nowrap;
+  cursor: pointer; transition: all .2s; flex-shrink: 0;
+}
+.loc-pill:hover { border-color: rgba(255,255,255,.25); color: var(--text); }
+.loc-pill.active { color: #000; }
+
+/* ── USER CARD (avatar + location tag) ──────────────── */
+.user-card { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+.user-loc-tag { font-size: 9px; color: var(--muted); white-space: nowrap; max-width: 44px; overflow: hidden; text-overflow: ellipsis; text-align: center; }
+
+/* ── DIRECTIONS BUTTON ───────────────────────────────── */
+.directions-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  margin-top: 10px; padding: 7px 13px;
+  background: rgba(232,184,75,.08); border: 1px solid rgba(232,184,75,.28);
+  border-radius: 8px; color: var(--gold); font-size: 12px; font-weight: 700;
+  text-decoration: none; transition: background .2s;
+}
+.directions-btn:hover { background: rgba(232,184,75,.18); }
+
 /* ── RESET PANEL ────────────────────────────────────── */
 .reset-panel {
   margin: 32px 16px 0;
@@ -354,6 +387,12 @@ body {
     <div class="meetup-label" id="meetupLabel"></div>
     <div class="meetup-detail" id="meetupDetail"></div>
   </div>
+</div>
+
+<!-- ══ LOCATION PICKER ════════════════════════════════════════════ -->
+<div id="locationPicker" class="loc-picker hidden">
+  <span class="loc-picker-label">I'm at:</span>
+  <div class="loc-pills" id="locPills"></div>
 </div>
 
 <!-- ══ FIREBASE SETUP NOTICE ═════════════════════════════════════ -->
@@ -471,7 +510,7 @@ const SECTIONS = [
   {
     id: 'lunch', time: '12:45 PM', title: 'Lunch Meetup',
     type: 'everyone', land: null,
-    meetup: { label: '📍 Meet-Up #1 — Lunch', loc: 'Toadstool Café (Nintendo) · Pizza Moon (Celestial) · Spit Fyre Grill (Berk)' },
+    meetup: { label: '📍 Meet-Up #1 — Lunch', loc: 'Toadstool Café (Nintendo) · Pizza Moon (Celestial) · Spit Fyre Grill (Berk)', mapsUrl: 'https://maps.google.com/?q=Toadstool+Cafe+Epic+Universe+Universal+Orlando' },
     items: {
       everyone: [
         { id: 'e11', text: 'Lunch — everyone back together!', note: 'Toadstool Café · Spit Fyre Grill · Pizza Moon · Mead Hall' },
@@ -501,7 +540,7 @@ const SECTIONS = [
   {
     id: 'dinner', time: '5:30 PM', title: 'Dinner Meetup',
     type: 'everyone', land: null,
-    meetup: { label: '📍 Meet-Up #2 — Dinner', loc: 'Mead Hall (Berk) · Das Stakehaus (Dark Universe) · The Blue Dragon Pan-Asian' },
+    meetup: { label: '📍 Meet-Up #2 — Dinner', loc: 'Mead Hall (Berk) · Das Stakehaus (Dark Universe) · The Blue Dragon Pan-Asian', mapsUrl: 'https://maps.google.com/?q=Mead+Hall+Epic+Universe+Universal+Orlando' },
     items: {
       everyone: [
         { id: 'e12', text: 'Dinner — everyone back together!', note: 'Mead Hall has the best group atmosphere · Das Stakehaus · Blue Dragon' },
@@ -511,7 +550,7 @@ const SECTIONS = [
   {
     id: 'evening', time: '8:00 PM', title: 'Evening & Final Sprint',
     type: 'split', land: null,
-    meetup: { label: '📍 Meet-Up #3 — Celestial Park Fountain', loc: 'Confirm 9:30 PM shuttle plan here. Final meetup before everyone wraps up.' },
+    meetup: { label: '📍 Meet-Up #3 — Celestial Park Fountain', loc: 'Confirm 9:30 PM shuttle plan here. Final meetup before everyone wraps up.', mapsUrl: 'https://maps.google.com/?q=Epic+Universe+Universal+Orlando+Resort' },
     items: {
       everyone: [
         { id: 'e13', text: '8:00 PM meetup at Celestial Park Fountain', note: 'Confirm shuttle plan. Meet-up #3 of 4.' },
@@ -535,6 +574,15 @@ const MEETUPS = [
 ];
 
 const LANDS = { nintendo: 'Nintendo World', berk: 'Isle of Berk', dark: 'Dark Universe', celestial: 'Celestial Park', potter: 'Ministry of Magic' };
+
+const LOCATIONS = [
+  { key: 'nintendo',  label: 'Nintendo',  emoji: '🎮', color: '#ff6b6b' },
+  { key: 'berk',      label: 'Berk',      emoji: '🐉', color: '#4be87a' },
+  { key: 'dark',      label: 'Dark Univ', emoji: '🌙', color: '#b56bf5' },
+  { key: 'celestial', label: 'Celestial', emoji: '⭐', color: '#4B9CE8' },
+  { key: 'potter',    label: 'Ministry',  emoji: '🪄', color: '#E8B84B' },
+  { key: 'shuttle',   label: 'Shuttle',   emoji: '🚌', color: '#888888' },
+];
 
 // Compute all item IDs per group (everyone items count for both)
 function groupItemIds(group) {
@@ -605,7 +653,9 @@ joinBtn.addEventListener('click', async () => {
   }
   document.getElementById('modal').classList.add('hidden');
   document.getElementById('resetPanel').classList.remove('hidden');
+  document.getElementById('locationPicker').classList.remove('hidden');
   renderTimeline();
+  renderLocationPicker();
   subscribeToUsers();
   updateDashboard();
   updateMeetupBanner();
@@ -621,7 +671,9 @@ if (savedName && savedGroup) {
   myName = savedName; myGroup = savedGroup;
   document.getElementById('modal').classList.add('hidden');
   document.getElementById('resetPanel').classList.remove('hidden');
+  document.getElementById('locationPicker').classList.remove('hidden');
   renderTimeline();
+  renderLocationPicker();
   subscribeToUsers();
   updateDashboard();
   updateMeetupBanner();
@@ -643,6 +695,7 @@ function subscribeToUsers() {
     allUsers = snap.val() || {};
     updateDashboard();
     updateCheckboxes();
+    renderLocationPicker();
   });
 }
 
@@ -672,6 +725,37 @@ async function toggleItem(itemId, itemGroup) {
     // Offline: persist to localStorage
     localStorage.setItem('epicTrip_offline', JSON.stringify(allUsers[myName].items));
   }
+}
+
+// ================================================================
+//  LOCATION PICKER
+// ================================================================
+function renderLocationPicker() {
+  const pills = document.getElementById('locPills');
+  const myLoc = allUsers[myName]?.location ?? null;
+  pills.innerHTML = LOCATIONS.map(loc => {
+    const active = myLoc === loc.key;
+    const style = active ? `background:${loc.color};border-color:${loc.color};` : '';
+    return `<button class="loc-pill${active ? ' active' : ''}" data-key="${loc.key}" style="${style}">${loc.emoji} ${loc.label}</button>`;
+  }).join('');
+
+  pills.querySelectorAll('.loc-pill').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const key = btn.dataset.key;
+      const current = allUsers[myName]?.location ?? null;
+      const newLoc = current === key ? null : key;   // toggle off if already active
+      if (!allUsers[myName]) allUsers[myName] = { group: myGroup, items: {} };
+      if (newLoc) allUsers[myName].location = newLoc;
+      else        delete allUsers[myName].location;
+      renderLocationPicker();
+      updateDashboard();
+      if (firebaseReady) {
+        const locRef = fbRef(db, `epic-universe-may9/users/${myName}/location`);
+        if (newLoc) await fbSet(locRef, newLoc);
+        else        await fbRemove(locRef);
+      }
+    });
+  });
 }
 
 // ================================================================
@@ -715,6 +799,7 @@ function buildSection(s) {
     h += `<div class="meetup-box">
       <div class="meetup-box-title">${s.meetup.label}</div>
       <div class="meetup-box-loc">${s.meetup.loc}</div>
+      ${s.meetup.mapsUrl ? `<a class="directions-btn" href="${s.meetup.mapsUrl}" target="_blank" rel="noopener">📍 Get Directions</a>` : ''}
     </div>`;
   }
 
@@ -830,9 +915,13 @@ function updateDashboard() {
   if (!users.length) {
     row.innerHTML = '<span class="online-label">No one online yet</span>';
   } else {
-    row.innerHTML = users.map(([n, u]) =>
-      `<div class="avatar ${u.group}" title="${n}">${initials(n)}</div>`
-    ).join('') + `<span class="online-label">${users.length} online</span>`;
+    row.innerHTML = users.map(([n, u]) => {
+      const loc = u.location ? LOCATIONS.find(l => l.key === u.location) : null;
+      return `<div class="user-card">
+        <div class="avatar ${u.group}" title="${n}">${initials(n)}</div>
+        ${loc ? `<div class="user-loc-tag">${loc.emoji} ${loc.label}</div>` : ''}
+      </div>`;
+    }).join('') + `<span class="online-label">${users.length} online</span>`;
   }
 }
 
@@ -886,11 +975,15 @@ document.getElementById('resetAllCheck').addEventListener('change', e => {
 // Reset my progress only — clears current user's items
 document.getElementById('resetMineBtn').addEventListener('click', async () => {
   if (!myName || !confirm('Reset your own progress?')) return;
-  if (firebaseReady) await fbSet(fbRef(db, `epic-universe-may9/users/${myName}/items`), {});
-  if (allUsers[myName]) allUsers[myName].items = {};
+  if (firebaseReady) {
+    await fbSet(fbRef(db, `epic-universe-may9/users/${myName}/items`), {});
+    await fbRemove(fbRef(db, `epic-universe-may9/users/${myName}/location`));
+  }
+  if (allUsers[myName]) { allUsers[myName].items = {}; delete allUsers[myName].location; }
   localStorage.removeItem('epicTrip_offline');
   updateDashboard();
   updateCheckboxes();
+  renderLocationPicker();
   showToast('✓ Your progress reset');
 });
 
