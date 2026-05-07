@@ -284,6 +284,25 @@ body {
 .user-card { display: flex; flex-direction: column; align-items: center; gap: 3px; }
 .user-loc-tag { font-size: 9px; color: var(--muted); white-space: nowrap; max-width: 44px; overflow: hidden; text-overflow: ellipsis; text-align: center; }
 
+/* ── SECTION DIRECTIONS LINK ─────────────────────────── */
+.section-dir-link {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 11px; font-weight: 700; color: var(--muted);
+  text-decoration: none; padding: 3px 8px;
+  border: 1px solid var(--border); border-radius: 6px;
+  transition: color .2s, border-color .2s; white-space: nowrap;
+}
+.section-dir-link:hover { color: var(--text); border-color: rgba(255,255,255,.25); }
+
+/* ── ITEM LAND LINK ──────────────────────────────────── */
+.item-land-link {
+  display: inline-flex; align-items: center; gap: 3px;
+  font-size: 11px; font-weight: 600; color: var(--muted);
+  text-decoration: none; margin-top: 5px;
+  transition: color .2s;
+}
+.item-land-link:hover { color: var(--text); }
+
 /* ── DIRECTIONS BUTTON ───────────────────────────────── */
 .directions-btn {
   display: inline-flex; align-items: center; gap: 5px;
@@ -466,9 +485,9 @@ const SECTIONS = [
     type: 'everyone', land: 'nintendo',
     items: {
       everyone: [
-        { id: 'e3', text: 'Mine-Cart Madness', note: '⚡ Most critical early ride — 118 min avg all day' },
-        { id: 'e4', text: "Mario Kart: Bowser's Challenge", note: 'Saves 75 min vs. joining at 10 AM' },
-        { id: 'e5', text: "Yoshi's Adventure", note: 'Family ride — perfect for everyone together' },
+        { id: 'e3', text: 'Mine-Cart Madness', note: '⚡ Most critical early ride — 118 min avg all day', land: 'nintendo' },
+        { id: 'e4', text: "Mario Kart: Bowser's Challenge", note: 'Saves 75 min vs. joining at 10 AM', land: 'nintendo' },
+        { id: 'e5', text: "Yoshi's Adventure", note: 'Family ride — perfect for everyone together', land: 'nintendo' },
       ]
     }
   },
@@ -477,8 +496,8 @@ const SECTIONS = [
     type: 'everyone', land: 'nintendo',
     items: {
       everyone: [
-        { id: 'e6', text: 'Power-Up Band Key Challenges (5 boss encounters)', note: 'Hidden throughout Nintendo World' },
-        { id: 'e7', text: 'Character Meets — Mario, Luigi, Peach, Toad, DK', note: 'Mobile order lunch for 12:45 PM during this block!' },
+        { id: 'e6', text: 'Power-Up Band Key Challenges (5 boss encounters)', note: 'Hidden throughout Nintendo World', land: 'nintendo' },
+        { id: 'e7', text: 'Character Meets — Mario, Luigi, Peach, Toad, DK', note: 'Mobile order lunch for 12:45 PM during this block!', land: 'nintendo' },
       ]
     }
   },
@@ -487,23 +506,23 @@ const SECTIONS = [
     type: 'everyone', land: 'berk',
     items: {
       everyone: [
-        { id: 'e8', text: "Hiccup's Wing Gliders", note: 'Family coaster — 45 mph, How to Train Your Dragon themed' },
-        { id: 'e9', text: "Dragon Racer's Rally", note: 'Individual pods with joysticks — control your dragon!' },
-        { id: 'e10', text: 'Fyre Drill — get absolutely soaked 💦', note: 'Do this LAST before the split' },
+        { id: 'e8', text: "Hiccup's Wing Gliders", note: 'Family coaster — 45 mph, How to Train Your Dragon themed', land: 'berk' },
+        { id: 'e9', text: "Dragon Racer's Rally", note: 'Individual pods with joysticks — control your dragon!', land: 'berk' },
+        { id: 'e10', text: 'Fyre Drill — get absolutely soaked 💦', note: 'Do this LAST before the split', land: 'berk' },
       ]
     }
   },
   {
     id: 'split', time: '11:30 AM', title: 'The Split',
-    type: 'split', land: null,
+    type: 'split', land: null, lands: { thrill: 'dark', chill: 'berk' },
     items: {
       thrill: [
-        { id: 't1', text: 'Monsters Unchained: The Frankenstein Experiment', note: '19 min avg wait · Walk to Dark Universe (~8 min)' },
-        { id: 't2', text: 'Curse of the Werewolf', note: 'Spinning coaster — usually walk-on right after split!' },
+        { id: 't1', text: 'Monsters Unchained: The Frankenstein Experiment', note: '19 min avg wait · Walk to Dark Universe (~8 min)', land: 'dark' },
+        { id: 't2', text: 'Curse of the Werewolf', note: 'Spinning coaster — usually walk-on right after split!', land: 'dark' },
       ],
       chill: [
-        { id: 'c1', text: 'Toothless Meet at Haddock Paddock', note: 'Full-size Toothless animatronic — incredible!' },
-        { id: 'c2', text: 'The Untrainable Dragon show', note: '~25 min, air-conditioned. Kids and adults love it.' },
+        { id: 'c1', text: 'Toothless Meet at Haddock Paddock', note: 'Full-size Toothless animatronic — incredible!', land: 'berk' },
+        { id: 'c2', text: 'The Untrainable Dragon show', note: '~25 min, air-conditioned. Kids and adults love it.', land: 'berk' },
       ]
     }
   },
@@ -519,21 +538,21 @@ const SECTIONS = [
   },
   {
     id: 'afternoon', time: '1:30 PM', title: 'Afternoon Block',
-    type: 'split', land: null,
+    type: 'split', land: null, lands: { thrill: 'celestial', chill: 'berk' },
     items: {
       thrill: [
-        { id: 't3', text: 'Stardust Racers', note: 'Dual-launch coaster · 62 mph · 31 min avg · Celestial Park' },
-        { id: 't4', text: 'Mine-Cart Madness — single rider re-ride', note: '10-30 min single rider vs. 90+ min standby. Big win.' },
-        { id: 't7', text: 'Dark Universe mop-up — Monsters or Werewolf re-ride', note: 'Afternoon waits drop · good time to re-hit Dark Universe' },
-        { id: 't8', text: "Hiccup's Wing Gliders re-ride", note: 'If skipped morning or want another lap — shorter afternoon wait' },
+        { id: 't3', text: 'Stardust Racers', note: 'Dual-launch coaster · 62 mph · 31 min avg · Celestial Park', land: 'celestial' },
+        { id: 't4', text: 'Mine-Cart Madness — single rider re-ride', note: '10-30 min single rider vs. 90+ min standby. Big win.', land: 'nintendo' },
+        { id: 't7', text: 'Dark Universe mop-up — Monsters or Werewolf re-ride', note: 'Afternoon waits drop · good time to re-hit Dark Universe', land: 'dark' },
+        { id: 't8', text: "Hiccup's Wing Gliders re-ride", note: 'If skipped morning or want another lap — shorter afternoon wait', land: 'berk' },
       ],
       chill: [
-        { id: 'c3', text: 'Viking Training Camp', note: 'Interactive kids area — no queue, Isle of Berk' },
-        { id: 'c4', text: 'Constellation Carousel', note: 'Milky Way themed · 22 min avg · Celestial Park' },
-        { id: 'c5', text: 'Astronomica Splash Pad', note: 'Interactive water play — no queue, great afternoon cool-down' },
-        { id: 'c7', text: 'Power-Up Band Round 2 — finish remaining bosses', note: 'Head back to Nintendo World · 5 total hidden boss encounters' },
-        { id: 'c8', text: 'Souvenir shopping', note: "1-Up Factory (Nintendo) · Toothless' Treasures · Funky's Fly 'n' Buy" },
-        { id: 'c9', text: 'Berk exploration + roaming dragon characters', note: 'Roaming characters appear throughout Berk in the afternoon' },
+        { id: 'c3', text: 'Viking Training Camp', note: 'Interactive kids area — no queue, Isle of Berk', land: 'berk' },
+        { id: 'c4', text: 'Constellation Carousel', note: 'Milky Way themed · 22 min avg · Celestial Park', land: 'celestial' },
+        { id: 'c5', text: 'Astronomica Splash Pad', note: 'Interactive water play — no queue, great afternoon cool-down', land: 'celestial' },
+        { id: 'c7', text: 'Power-Up Band Round 2 — finish remaining bosses', note: 'Head back to Nintendo World · 5 total hidden boss encounters', land: 'nintendo' },
+        { id: 'c8', text: 'Souvenir shopping', note: "1-Up Factory (Nintendo) · Toothless' Treasures · Funky's Fly 'n' Buy", land: 'nintendo' },
+        { id: 'c9', text: 'Berk exploration + roaming dragon characters', note: 'Roaming characters appear throughout Berk in the afternoon', land: 'berk' },
       ]
     }
   },
@@ -549,18 +568,18 @@ const SECTIONS = [
   },
   {
     id: 'evening', time: '8:00 PM', title: 'Evening & Final Sprint',
-    type: 'split', land: null,
+    type: 'split', land: null, lands: { thrill: 'potter', chill: 'nintendo' },
     meetup: { label: '📍 Meet-Up #3 — Celestial Park Fountain', loc: 'Confirm 9:30 PM shuttle plan here. Final meetup before everyone wraps up.', mapsUrl: 'https://maps.google.com/?q=Epic+Universe+Universal+Orlando+Resort' },
     items: {
       everyone: [
-        { id: 'e13', text: '8:00 PM meetup at Celestial Park Fountain', note: 'Confirm shuttle plan. Meet-up #3 of 4.' },
+        { id: 'e13', text: '8:00 PM meetup at Celestial Park Fountain', note: 'Confirm shuttle plan. Meet-up #3 of 4.', land: 'celestial' },
       ],
       thrill: [
-        { id: 't5', text: 'Battle at the Ministry — queue at 8:45 PM', note: '⚡ CRITICAL: wait drops from 110 → 53 min at 9 PM (57% less based on 950k samples!)' },
-        { id: 't6', text: 'Stardust Racers final lap', note: 'Near walk-on at night — if time allows after Ministry' },
+        { id: 't5', text: 'Battle at the Ministry — queue at 8:45 PM', note: '⚡ CRITICAL: wait drops from 110 → 53 min at 9 PM (57% less based on 950k samples!)', land: 'potter' },
+        { id: 't6', text: 'Stardust Racers final lap', note: 'Near walk-on at night — if time allows after Ministry', land: 'celestial' },
       ],
       chill: [
-        { id: 'c6', text: "Mario Kart re-ride — beat your morning score", note: 'Evening waits drop significantly · Nintendo World' },
+        { id: 'c6', text: "Mario Kart re-ride — beat your morning score", note: 'Evening waits drop significantly · Nintendo World', land: 'nintendo' },
       ]
     }
   },
@@ -574,6 +593,14 @@ const MEETUPS = [
 ];
 
 const LANDS = { nintendo: 'Nintendo World', berk: 'Isle of Berk', dark: 'Dark Universe', celestial: 'Celestial Park', potter: 'Ministry of Magic' };
+
+const LAND_MAPS = {
+  nintendo:  'https://maps.google.com/?q=Nintendo+World+Epic+Universe+Universal+Orlando',
+  berk:      'https://maps.google.com/?q=Isle+of+Berk+Epic+Universe+Universal+Orlando',
+  dark:      'https://maps.google.com/?q=Dark+Universe+Epic+Universe+Universal+Orlando',
+  celestial: 'https://maps.google.com/?q=Celestial+Park+Epic+Universe+Universal+Orlando',
+  potter:    'https://maps.google.com/?q=Ministry+of+Magic+Epic+Universe+Universal+Orlando',
+};
 
 const LOCATIONS = [
   { key: 'nintendo',  label: 'Nintendo',  emoji: '🎮', color: '#ff6b6b' },
@@ -792,6 +819,7 @@ function buildSection(s) {
     <span class="time-badge">${s.time}</span>
     <span class="section-title">${s.title}</span>
     ${s.land ? `<span class="land-badge land-${s.land}">${LANDS[s.land]}</span>` : ''}
+    ${s.land ? `<a class="section-dir-link" href="${LAND_MAPS[s.land]}" target="_blank" rel="noopener">📍 Directions</a>` : ''}
     ${s.type === 'everyone' ? '<span class="group-tag everyone">Everyone</span>' : ''}
   </div>`;
 
@@ -809,13 +837,15 @@ function buildSection(s) {
     // Everyone items at top (e.g. e13)
     if (s.items.everyone?.length) h += buildItemList(s.items.everyone, 'everyone');
 
+    const thrillLand = s.lands?.thrill;
+    const chillLand  = s.lands?.chill;
     h += '<div class="split-grid">';
     h += `<div class="split-col">
-      <div class="split-col-head thrill">🎢 Thrill Duo</div>
+      <div class="split-col-head thrill">🎢 Thrill Duo${thrillLand ? ` <a class="section-dir-link" href="${LAND_MAPS[thrillLand]}" target="_blank" rel="noopener" style="margin-left:4px">📍 ${LANDS[thrillLand]}</a>` : ''}</div>
       ${buildItemList(s.items.thrill || [], 'thrill', true)}
     </div>`;
     h += `<div class="split-col">
-      <div class="split-col-head chill">🌿 Chill Group</div>
+      <div class="split-col-head chill">🌿 Chill Group${chillLand ? ` <a class="section-dir-link" href="${LAND_MAPS[chillLand]}" target="_blank" rel="noopener" style="margin-left:4px">📍 ${LANDS[chillLand]}</a>` : ''}</div>
       ${buildItemList(s.items.chill || [], 'chill', true)}
     </div>`;
     h += '</div>';
@@ -834,6 +864,7 @@ function buildItemList(items, itemGroup, inline = false) {
       <div class="item-body">
         <div class="item-text">${item.text}</div>
         ${item.note ? `<div class="item-note">${item.note}</div>` : ''}
+        ${item.land && LAND_MAPS[item.land] ? `<a class="item-land-link" href="${LAND_MAPS[item.land]}" target="_blank" rel="noopener">📍 ${LANDS[item.land]}</a>` : ''}
         <div class="item-checkers" id="chk-${item.id}"></div>
       </div>
     </div>`;
