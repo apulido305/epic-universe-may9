@@ -506,23 +506,23 @@ const SECTIONS = [
     items: {
       everyone: [
         { id: 'e6', text: 'Power-Up Band Key Challenges (5 boss encounters)', note: 'Hidden throughout Nintendo World', land: 'nintendo' },
-        { id: 'e7', text: 'Character Meets — Mario, Luigi, Peach, Toad, DK', note: 'Mobile order lunch for 12:45 PM during this block!', land: 'nintendo' },
+        { id: 'e7', text: 'Character Meets — Mario, Luigi, Peach, Toad, DK', note: 'Mobile order lunch for 1:30 PM during this block!', land: 'nintendo' },
       ]
     }
   },
   {
-    id: 'berk', time: '11:00 AM', title: 'Isle of Berk',
+    id: 'berk', time: '10:45 AM', title: 'Isle of Berk',
     type: 'everyone', land: 'berk',
     items: {
       everyone: [
-        { id: 'e8', text: "Hiccup's Wing Gliders", note: 'Family coaster — 45 mph, How to Train Your Dragon themed', land: 'berk' },
-        { id: 'e9', text: "Dragon Racer's Rally", note: 'Individual pods with joysticks — control your dragon!', land: 'berk' },
-        { id: 'e10', text: 'Fyre Drill — get absolutely soaked 💦', note: 'Do this LAST before the split', land: 'berk' },
+        { id: 'e8', text: "Hiccup's Wing Gliders", note: '⭐ Priority — do first · Family coaster 45 mph, tight 10:45 AM window', land: 'berk' },
+        { id: 'e9', text: "Dragon Racer's Rally", note: '⭐ Priority — do second · Individual pods, control your dragon!', land: 'berk' },
+        { id: 'e10', text: 'Fyre Drill — get absolutely soaked 💦', note: 'Do LAST if time allows — splits group soaking wet right after', land: 'berk' },
       ]
     }
   },
   {
-    id: 'split', time: '11:30 AM', title: 'The Split',
+    id: 'split', time: '12:00 PM', title: 'The Split',
     type: 'split', land: null, lands: { thrill: 'dark', chill: 'berk' },
     items: {
       thrill: [
@@ -530,38 +530,38 @@ const SECTIONS = [
         { id: 't2', text: 'Curse of the Werewolf', note: 'Spinning coaster — usually walk-on right after split!', land: 'dark' },
       ],
       chill: [
-        { id: 'c1', text: 'Toothless Meet at Haddock Paddock', note: 'Full-size Toothless animatronic — incredible!', land: 'berk' },
-        { id: 'c2', text: 'The Untrainable Dragon show', note: '~25 min, air-conditioned. Kids and adults love it.', land: 'berk' },
+        { id: 'c1', text: 'Toothless Meet at Haddock Paddock', note: 'Do before the 12:30 show — use the 30 min gap · Full-size Toothless animatronic', land: 'berk' },
+        { id: 'c2', text: 'The Untrainable Dragon show', note: 'Catch the 12:30 PM showing — arrives just in time · ~20 min, air-conditioned', land: 'berk' },
       ]
     }
   },
   {
-    id: 'lunch', time: '12:45 PM', title: 'Lunch Meetup',
+    id: 'lunch', time: '1:30 PM', title: 'Lunch Meetup',
     type: 'everyone', land: null,
-    meetup: { label: '📍 Meet-Up #1 — Lunch', loc: 'Toadstool Café (Nintendo) · Pizza Moon (Celestial) · Spit Fyre Grill (Berk)', mapsUrl: 'https://maps.google.com/?q=Toadstool+Cafe+Epic+Universe+Universal+Orlando' },
+    meetup: { label: '📍 Meet-Up #1 — Lunch', loc: 'Pizza Moon (Celestial Park) · Spit Fyre Grill (Berk) · Toadstool Café (Nintendo)', mapsUrl: 'https://maps.google.com/?q=Pizza+Moon+Epic+Universe+Universal+Orlando' },
     items: {
       everyone: [
-        { id: 'e11', text: 'Lunch — everyone back together!', note: 'Toadstool Café · Spit Fyre Grill · Pizza Moon · Mead Hall' },
+        { id: 'e11', text: 'Lunch — everyone back together!', note: '⭐ Pizza Moon (Celestial Park) — equidistant from both groups · Spit Fyre Grill · Toadstool Café' },
       ]
     }
   },
   {
-    id: 'afternoon', time: '1:30 PM', title: 'Afternoon Block',
-    type: 'split', land: null, lands: { thrill: 'celestial', chill: 'berk' }, groupByLand: { chill: true },
+    id: 'afternoon', time: '2:15 PM', title: 'Afternoon Block',
+    type: 'split', land: null, lands: { thrill: 'celestial', chill: 'celestial' }, groupByLand: { chill: true },
     items: {
       thrill: [
         { id: 't3', text: 'Stardust Racers', note: 'Dual-launch coaster · 62 mph · 31 min avg · Celestial Park', land: 'celestial' },
-        { id: 't4', text: 'Mine-Cart Madness — single rider re-ride', note: '10-30 min single rider vs. 90+ min standby. Big win.', land: 'nintendo' },
         { id: 't7', text: 'Dark Universe mop-up — Monsters or Werewolf re-ride', note: 'Afternoon waits drop · good time to re-hit Dark Universe', land: 'dark' },
+        { id: 't4', text: 'Mine-Cart Madness — single rider re-ride', note: '10-30 min single rider vs. 90+ min standby. Big win.', land: 'nintendo' },
         { id: 't8', text: "Hiccup's Wing Gliders re-ride", note: 'If skipped morning or want another lap — shorter afternoon wait', land: 'berk' },
       ],
       chill: [
-        { id: 'c3', text: 'Viking Training Camp', note: 'Interactive kids area — no queue, Isle of Berk', land: 'berk' },
         { id: 'c4', text: 'Constellation Carousel', note: 'Milky Way themed · 22 min avg · Celestial Park', land: 'celestial' },
         { id: 'c5', text: 'Astronomica Splash Pad', note: 'Interactive water play — no queue, great afternoon cool-down', land: 'celestial' },
         { id: 'c7', text: 'Power-Up Band Round 2 — finish remaining bosses', note: 'Head back to Nintendo World · 5 total hidden boss encounters', land: 'nintendo' },
         { id: 'c8', text: 'Souvenir shopping', note: "1-Up Factory (Nintendo) · Toothless' Treasures · Funky's Fly 'n' Buy", land: 'nintendo' },
-        { id: 'c9', text: 'Berk exploration + roaming dragon characters', note: 'Roaming characters appear throughout Berk in the afternoon', land: 'berk' },
+        { id: 'c3', text: 'Viking Training Camp', note: 'Interactive kids area — no queue, Isle of Berk', land: 'berk' },
+        { id: 'c9', text: 'Berk exploration + roaming dragon characters', note: 'Roaming characters appear throughout Berk · walks straight into Mead Hall for dinner', land: 'berk' },
       ]
     }
   },
@@ -572,6 +572,17 @@ const SECTIONS = [
     items: {
       everyone: [
         { id: 'e12', text: 'Dinner — everyone back together!', note: 'Mead Hall has the best group atmosphere · Das Stakehaus · Blue Dragon' },
+      ]
+    }
+  },
+  {
+    id: 'together630', time: '6:30 PM', title: 'Evening Together — Nintendo World',
+    type: 'everyone', land: 'nintendo',
+    items: {
+      everyone: [
+        { id: 'e14', text: 'Mine-Cart Madness — evening re-ride', note: 'Waits drop significantly after 6 PM · best window of the day', land: 'nintendo' },
+        { id: 'e15', text: "Mario Kart: Bowser's Challenge — beat your score", note: 'Evening crowds thin out · try to top the morning run', land: 'nintendo' },
+        { id: 'e16', text: "Yoshi's Adventure — final lap together", note: 'Low wait, good group closer before the 8 PM fountain meetup', land: 'nintendo' },
       ]
     }
   },
@@ -595,7 +606,7 @@ const SECTIONS = [
 ];
 
 const MEETUPS = [
-  { h: 12, m: 45, label: 'Lunch Meetup at 12:45 PM',   loc: 'Toadstool Café (Nintendo World)' },
+  { h: 13, m: 30, label: 'Lunch Meetup at 1:30 PM',    loc: 'Pizza Moon (Celestial Park)' },
   { h: 17, m: 30, label: 'Dinner Meetup at 5:30 PM',   loc: 'Mead Hall (Isle of Berk)' },
   { h: 20, m:  0, label: 'Fountain Meetup at 8:00 PM', loc: 'Celestial Park Fountain' },
   { h: 21, m: 30, label: 'Shuttle Home at 9:30 PM',    loc: 'Dockside Hotel Shuttle Stop' },
