@@ -284,6 +284,15 @@ body {
 .user-card { display: flex; flex-direction: column; align-items: center; gap: 3px; }
 .user-loc-tag { font-size: 9px; color: var(--muted); white-space: nowrap; max-width: 44px; overflow: hidden; text-overflow: ellipsis; text-align: center; }
 
+/* ── LAND SUB-GROUP ─────────────────────────────────── */
+.land-subgroup { margin-bottom: 12px; }
+.land-subgroup:last-child { margin-bottom: 0; }
+.land-subgroup-head {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 8px;
+}
+.land-subgroup-head .land-badge { font-size: 11px; }
+
 /* ── SECTION DIRECTIONS LINK ─────────────────────────── */
 .section-dir-link {
   display: inline-flex; align-items: center; gap: 4px;
@@ -538,7 +547,7 @@ const SECTIONS = [
   },
   {
     id: 'afternoon', time: '1:30 PM', title: 'Afternoon Block',
-    type: 'split', land: null, lands: { thrill: 'celestial', chill: 'berk' },
+    type: 'split', land: null, lands: { thrill: 'celestial', chill: 'berk' }, groupByLand: { chill: true },
     items: {
       thrill: [
         { id: 't3', text: 'Stardust Racers', note: 'Dual-launch coaster · 62 mph · 31 min avg · Celestial Park', land: 'celestial' },
@@ -845,13 +854,33 @@ function buildSection(s) {
       ${buildItemList(s.items.thrill || [], 'thrill', true)}
     </div>`;
     h += `<div class="split-col">
-      <div class="split-col-head chill">🌿 Chill Group${chillLand ? ` <a class="section-dir-link" href="${LAND_MAPS[chillLand]}" target="_blank" rel="noopener" style="margin-left:4px">📍 ${LANDS[chillLand]}</a>` : ''}</div>
-      ${buildItemList(s.items.chill || [], 'chill', true)}
+      <div class="split-col-head chill">🌿 Chill Group${!s.groupByLand?.chill && chillLand ? ` <a class="section-dir-link" href="${LAND_MAPS[chillLand]}" target="_blank" rel="noopener" style="margin-left:4px">📍 ${LANDS[chillLand]}</a>` : ''}</div>
+      ${s.groupByLand?.chill ? buildLandGroupedList(s.items.chill || [], 'chill') : buildItemList(s.items.chill || [], 'chill', true)}
     </div>`;
     h += '</div>';
   }
 
   return h;
+}
+
+function buildLandGroupedList(items, itemGroup) {
+  // Preserve land order as they appear in the items array
+  const order = [];
+  const groups = {};
+  for (const item of items) {
+    const key = item.land || 'other';
+    if (!groups[key]) { groups[key] = []; order.push(key); }
+    groups[key].push(item);
+  }
+  return order.map(landKey => `
+    <div class="land-subgroup">
+      <div class="land-subgroup-head">
+        <span class="land-badge land-${landKey}">${LANDS[landKey] || landKey}</span>
+        ${LAND_MAPS[landKey] ? `<a class="section-dir-link" href="${LAND_MAPS[landKey]}" target="_blank" rel="noopener">📍 Directions</a>` : ''}
+      </div>
+      ${buildItemList(groups[landKey], itemGroup, true)}
+    </div>
+  `).join('');
 }
 
 function buildItemList(items, itemGroup, inline = false) {
