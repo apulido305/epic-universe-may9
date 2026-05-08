@@ -538,7 +538,9 @@ const SECTIONS = [
         { id: 'c4', text: 'If I Ran the Zoo — walk-through interactive area', note: 'Great for photos · playful Seuss-themed interactive spaces', land: 'seuss' },
         { id: 'c5', text: 'Mulberry Street stroll + architecture photos', note: 'Whimsical oversized buildings at peak morning light · best photo window of the day', land: 'seuss' },
         { id: 'c6', text: 'Browse Snookers & Snookers Sweet Candy Cookers', note: 'Themed sweets shop in Seuss Landing', land: 'seuss' },
-        { id: 'c6b', text: 'Early walk: Lost Continent + Poseidon\'s Fury exterior', note: 'Seuss Landing is adjacent to Lost Continent · stunning ruins-and-fire theming · no queue, just explore · good 20-min window once Seuss rides are done', land: 'lost' },
+        { id: 'c6c', text: 'The High in the Sky Seuss Trolley Train Ride!', note: 'Gentle elevated train looping above Seuss Landing · 5–10 min wait at opening · great views of the whole land from above', land: 'seuss' },
+        { id: 'c6d', text: 'Caro-Seuss-el', note: 'Classic Seuss-themed carousel · rarely a wait · easy fill if Cat in the Hat or One Fish has a short line', land: 'seuss' },
+        { id: 'c6b', text: 'Walk to Lost Continent — Poseidon\'s Fury area', note: 'Seuss Landing is adjacent · stunning ruins-and-fire theming · if shows are running (check app) the full walk-through show is ~20 min and air-conditioned', land: 'lost' },
       ]
     }
   },
@@ -552,8 +554,8 @@ const SECTIONS = [
         { id: 't3', text: 'Jurassic World VelociCoaster', note: '⚡ Priority #2 · hits 102 min by 11 AM — go NOW · 70 mph, 4 inversions · use single rider if >40 min · head straight to Marvel meetup after — Hulk is tonight\'s closer', land: 'jurassic' },
       ],
       chill: [
-        { id: 'c8', text: 'Amazing Adventures of Spider-Man', note: 'Walk back through Port of Entry from Seuss — 5 min · Spider-Man is the best non-coaster in the park · 4D dark ride, no drops, very smooth · 10–20 min wait', land: 'marvel' },
-        { id: 'c9', text: 'Marvel Super Hero Island photos', note: 'Explore the Marvel plaza area and hero murals · you\'re at the meetup location — arrive early and explore', land: 'marvel' },
+        { id: 'c9', text: 'Marvel Super Hero Island photos', note: 'Walk back through Port of Entry from Seuss — 5 min · explore the Marvel plaza area and hero murals · you\'re at the meetup location — arrive early and browse', land: 'marvel' },
+        { id: 'c10b', text: 'Storm Force Accelatron — optional', note: 'Spinning Marvel ride · mild intensity, similar to teacups · 5–10 min wait · good option if you want one more ride before the meetup · skip if sensitive to spinning', land: 'marvel' },
         { id: 'c10', text: 'Port of Entry shopping + snack at Confisco Grille', note: 'Air-conditioned · broader merchandise than land-specific shops · good pre-meetup window', land: 'entry' },
       ]
     }
@@ -561,7 +563,7 @@ const SECTIONS = [
 
   // ── S5: MEETUP #1 + KONG (everyone + meetup) ─────────────────
   {
-    id: 'meetup1Kong', time: '10:30 AM', title: 'Meetup #1 + Skull Island: Reign of Kong',
+    id: 'meetup1Kong', time: '10:30 AM', title: 'Meetup #1 + Spider-Man + Kong',
     type: 'everyone', land: 'skull',
     meetup: {
       label: '📍 Meet-Up #1 — Marvel Super Hero Island Plaza',
@@ -570,26 +572,27 @@ const SECTIONS = [
     },
     items: {
       everyone: [
-        { id: 'e7', text: 'Skull Island: Reign of Kong', note: 'Vehicle-based dark ride · no coaster elements · 25–45 min wait · the immersive queue building alone is extraordinary — take your time through it · factor 45–60 min total', land: 'skull' },
+        { id: 'e6b', text: 'Amazing Adventures of Spider-Man — everyone together!', note: '4D dark ride · no drops or inversions · very smooth · 10–20 min wait · ride it NOW while you\'re all at Marvel · place mobile lunch order while waiting in line', land: 'marvel' },
+        { id: 'e7', text: 'Skull Island: Reign of Kong', note: 'Walk from Spider-Man → Toon Lagoon → Skull Island (~8 min) · vehicle-based dark ride, no coaster elements · 25–45 min wait · the immersive queue building alone is extraordinary — take your time through it', land: 'skull' },
       ]
     }
   },
 
   // ── S6: JURASSIC WALK + MOBILE ORDER (everyone) ──────────────
   {
-    id: 'jurassicWalk', time: '11:30 AM', title: 'Jurassic World Walk + Mobile Lunch Order',
+    id: 'jurassicWalk', time: '12:00 PM', title: 'Jurassic World Walk + Mobile Lunch Order',
     type: 'everyone', land: 'jurassic',
     items: {
       everyone: [
         { id: 'e8', text: 'Walk Jurassic World — iconic gates + Discovery Center', note: 'Dino paddocks, lagoon waterfront path, great group photos at the entrance gates' },
-        { id: 'e9', text: 'Place mobile food order via Universal app NOW', note: '⚡ Open app → Mobile Food Orders → Thunder Falls Terrace → select 11:45–12:00 PM pickup window — bypasses the entire order line' },
+        { id: 'e9', text: 'Place mobile food order via Universal app NOW', note: '⚡ Open app → Mobile Food Orders → Thunder Falls Terrace → select 12:15–12:30 PM pickup window — bypasses the entire order line' },
       ]
     }
   },
 
   // ── S7: LUNCH (everyone + meetup) ────────────────────────────
   {
-    id: 'lunch', time: '12:00 PM', title: 'Lunch',
+    id: 'lunch', time: '12:30 PM', title: 'Lunch',
     type: 'everyone', land: null,
     meetup: {
       label: '🍽️ Lunch — Eat Together',
@@ -615,7 +618,8 @@ const SECTIONS = [
         { id: 't7', text: 'Butterbeer break — rest in Hogsmeade village shade', note: 'Frozen or regular at the Butterbeer cart · take a genuine rest between rides · Hogsmeade village is beautiful to sit in', land: 'hogsmeade' },
       ],
       chill: [
-        { id: 'c11', text: 'Jurassic World Discovery Center', note: 'Start here · free indoor exhibit, A/C · interactive dino displays + fossil areas · then walk Skull Island → Toon for afternoon activities', land: 'jurassic' },
+        { id: 'c11', text: 'Jurassic World Discovery Center', note: 'Start here · free indoor exhibit, A/C · interactive dino displays + fossil areas', land: 'jurassic' },
+        { id: 'c11b', text: 'Camp Jurassic — walk-through exploration area', note: 'No queue · dino dig spots, climbing caves, hidden waterfalls, interactive water cannons · great for photos · adjacent to Discovery Center · then walk Skull Island → Toon', land: 'jurassic' },
         { id: 'c12', text: 'Toon Lagoon Comic Strip Lane gift shops', note: 'Some of the most unique merchandise in the park · browse without rush', land: 'toon' },
         { id: 'c13', text: 'Cathy\'s Ice Cream snack', note: 'Afternoon treat · Toon Lagoon area cart', land: 'toon' },
         { id: 'c14', text: 'Shaded rest break — mandatory in May heat', note: '⚠️ 88–92°F peak heat 1–3:30 PM · rest at Blondie\'s or Wimpy\'s in Toon Lagoon (A/C) · hydrate actively — this is not optional', land: 'toon' },
@@ -651,7 +655,7 @@ const SECTIONS = [
         { id: 't8b', text: 'If Hagrid\'s skipped — VelociCoaster single rider or Hulk re-ride', note: 'Single rider line at VelociCoaster runs 10–30 min even at 4 PM · keeps you in Jurassic area near dinner · Hagrid\'s saved for the 7:30 PM window', land: 'jurassic' },
       ],
       chill: [
-        { id: 'c16', text: 'Seuss Landing farewell loop', note: 'Re-ride Cat in the Hat + One Fish Two Fish (under 10 min each) · warm golden afternoon light for final photos', land: 'seuss' },
+        { id: 'c16', text: 'Seuss Landing farewell loop', note: 'Re-ride Cat in the Hat + One Fish Two Fish · Trolley Train Ride (short wait in late afternoon) · Caro-Seuss-el · warm golden light for final photos', land: 'seuss' },
         { id: 'c17', text: 'Port of Entry shopping — best window of the day', note: 'Islands of Adventure Trading Company · Ocean Trader Market · least crowded shopping time · browse for keepsakes', land: 'entry' },
       ]
     }
