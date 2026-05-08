@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Epic Universe · May 9 Battle Plan</title>
+<title>Islands of Adventure · May 10 Battle Plan</title>
 <style>
 :root {
-  --bg:     #0C0C0F;
+  --bg:     #0D1B1E;
   --bg2:    #14141A;
   --bg3:    #1C1C25;
-  --gold:   #E8B84B;
+  --gold:   #2DD4BF;
   --red:    #E84B4B;
   --blue:   #4B9CE8;
   --green:  #4BE87A;
@@ -31,12 +31,6 @@ body {
   min-height: 100vh;
   padding-bottom: 80px;
 }
-
-/* ── DAY NAV ─────────────────────────────────────── */
-.day-nav { display:flex; gap:6px; margin-bottom:10px; padding-bottom:8px; border-bottom:1px solid var(--border); }
-.day-link { font-size:12px; padding:4px 12px; border-radius:20px; border:1.5px solid var(--border); color:var(--muted); text-decoration:none; font-weight:600; transition:all .2s; white-space:nowrap; }
-.day-link:hover { border-color:rgba(255,255,255,.25); color:var(--text); }
-.day-link.active { background:var(--gold); color:#000; font-weight:800; border-color:var(--gold); }
 
 /* ── MODAL ─────────────────────────────────────────── */
 .modal-overlay {
@@ -94,18 +88,32 @@ body {
 .join-btn:hover:not(:disabled) { transform: scale(1.02); }
 .join-btn:disabled { opacity: .3; cursor: not-allowed; }
 
+/* ── DAY NAV ─────────────────────────────────────── */
+.day-nav {
+  display: flex; gap: 6px; padding: 10px 16px 8px;
+  border-bottom: 1px solid var(--border);
+}
+.day-link {
+  font-size: 12px; padding: 4px 12px; border-radius: 20px;
+  border: 1.5px solid var(--border); color: var(--muted);
+  text-decoration: none; font-weight: 600; transition: all .2s; white-space: nowrap;
+}
+.day-link:hover { border-color: rgba(255,255,255,.25); color: var(--text); }
+.day-link.active { background: var(--gold); color: #000; font-weight: 800; border-color: var(--gold); }
+
 /* ── STICKY HEADER ──────────────────────────────────── */
 .sticky-header {
   position: sticky; top: 0; z-index: 100;
-  background: rgba(12,12,15,.95);
+  background: rgba(13,27,30,.95);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border);
-  padding: 12px 16px 10px;
+  padding-bottom: 10px;
 }
 
 .progress-row {
   display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 10px;
+  padding: 10px 16px 0;
 }
 .progress-stat { text-align: center; }
 .p-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: 2px; }
@@ -121,7 +129,7 @@ body {
 
 .online-row {
   display: flex; align-items: center; justify-content: center;
-  gap: 6px; flex-wrap: wrap;
+  gap: 6px; flex-wrap: wrap; padding: 0 16px;
 }
 .online-label { font-size: 11px; color: var(--muted); }
 .avatar {
@@ -136,8 +144,8 @@ body {
 
 /* ── MEETUP BANNER ──────────────────────────────────── */
 .meetup-banner {
-  background: rgba(232,184,75,.07);
-  border-bottom: 1px solid rgba(232,184,75,.2);
+  background: rgba(45,212,191,.07);
+  border-bottom: 1px solid rgba(45,212,191,.2);
   padding: 10px 16px;
   display: flex; align-items: center; gap: 12px;
 }
@@ -150,7 +158,7 @@ body {
 .setup-notice {
   margin: 20px 16px;
   background: var(--bg2);
-  border: 1px dashed rgba(232,184,75,.35);
+  border: 1px dashed rgba(45,212,191,.35);
   border-radius: 14px;
   padding: 20px;
 }
@@ -179,19 +187,22 @@ body {
 .section-title { font-size: 17px; font-weight: 800; flex: 1; min-width: 120px; }
 
 .land-badge { font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 6px; }
-.land-nintendo { background: rgba(232,75,75,.18); color: #ff6b6b; }
-.land-berk     { background: rgba(75,232,122,.18); color: #4be87a; }
-.land-dark     { background: rgba(155,75,232,.18); color: #b56bf5; }
-.land-celestial{ background: rgba(75,156,232,.18); color: var(--blue); }
-.land-potter   { background: rgba(232,184,75,.18); color: var(--gold); }
+.land-seuss      { background: rgba(249,115,22,.18); color: #fb923c; }
+.land-marvel     { background: rgba(232,75,75,.18);  color: #ff6b6b; }
+.land-toon       { background: rgba(75,232,122,.18); color: #4be87a; }
+.land-skull      { background: rgba(155,75,232,.18); color: #b56bf5; }
+.land-jurassic   { background: rgba(34,197,94,.18);  color: #22c55e; }
+.land-lost       { background: rgba(212,169,106,.18);color: #d4a96a; }
+.land-hogsmeade  { background: rgba(155,75,232,.18); color: #9b4be8; }
+.land-entry      { background: rgba(75,156,232,.18); color: var(--blue); }
 
 .group-tag { font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 6px; }
-.group-tag.everyone { background: rgba(232,184,75,.12); color: var(--gold); }
+.group-tag.everyone { background: rgba(45,212,191,.12); color: var(--gold); }
 
 /* ── MEETUP BOX ─────────────────────────────────────── */
 .meetup-box {
-  background: rgba(232,184,75,.07);
-  border: 1px solid rgba(232,184,75,.2);
+  background: rgba(45,212,191,.07);
+  border: 1px solid rgba(45,212,191,.2);
   border-radius: 10px; padding: 12px 14px; margin-bottom: 14px;
 }
 .meetup-box-title { color: var(--gold); font-weight: 700; font-size: 14px; margin-bottom: 3px; }
@@ -208,7 +219,7 @@ body {
   user-select: none; -webkit-user-select: none;
 }
 .item-card:active { background: var(--bg3); }
-.item-card.everyone  { border-left: 3px solid rgba(232,184,75,.6); }
+.item-card.everyone  { border-left: 3px solid rgba(45,212,191,.6); }
 .item-card.thrill    { border-left: 3px solid rgba(232,75,75,.6); }
 .item-card.chill     { border-left: 3px solid rgba(75,156,232,.6); }
 .item-card.readonly  { cursor: default; opacity: .65; }
@@ -220,11 +231,10 @@ body {
   align-items: center; justify-content: center;
   flex-shrink: 0; margin-top: 1px; transition: all .2s;
 }
-.item-card.everyone  .checkbox { border-color: rgba(232,184,75,.45); }
+.item-card.everyone  .checkbox { border-color: rgba(45,212,191,.45); }
 .item-card.thrill    .checkbox { border-color: rgba(232,75,75,.45); }
 .item-card.chill     .checkbox { border-color: rgba(75,156,232,.45); }
 
-.checkbox.checked { }
 .item-card.everyone  .checkbox.checked { background: var(--gold); border-color: var(--gold); }
 .item-card.thrill    .checkbox.checked { background: var(--red);  border-color: var(--red); }
 .item-card.chill     .checkbox.checked { background: var(--blue); border-color: var(--blue); }
@@ -286,7 +296,7 @@ body {
 .loc-pill:hover { border-color: rgba(255,255,255,.25); color: var(--text); }
 .loc-pill.active { color: #000; }
 
-/* ── USER CARD (avatar + location tag) ──────────────── */
+/* ── USER CARD ──────────────────────────────────────── */
 .user-card { display: flex; flex-direction: column; align-items: center; gap: 3px; }
 .user-loc-tag { font-size: 9px; color: var(--muted); white-space: nowrap; max-width: 44px; overflow: hidden; text-overflow: ellipsis; text-align: center; }
 
@@ -322,11 +332,11 @@ body {
 .directions-btn {
   display: inline-flex; align-items: center; gap: 5px;
   margin-top: 10px; padding: 7px 13px;
-  background: rgba(232,184,75,.08); border: 1px solid rgba(232,184,75,.28);
+  background: rgba(45,212,191,.08); border: 1px solid rgba(45,212,191,.28);
   border-radius: 8px; color: var(--gold); font-size: 12px; font-weight: 700;
   text-decoration: none; transition: background .2s;
 }
-.directions-btn:hover { background: rgba(232,184,75,.18); }
+.directions-btn:hover { background: rgba(45,212,191,.18); }
 
 /* ── RESET PANEL ────────────────────────────────────── */
 .reset-panel {
@@ -365,9 +375,9 @@ body {
 <!-- ══ ONBOARDING MODAL ══════════════════════════════════════════ -->
 <div id="modal" class="modal-overlay">
   <div class="modal-card">
-    <div class="modal-emoji">🎢</div>
-    <h1>Epic Universe</h1>
-    <p class="subtitle">Battle Plan · May 9, 2026 · 4 People</p>
+    <div class="modal-emoji">🦕</div>
+    <h1>Islands of Adventure</h1>
+    <p class="subtitle">Battle Plan · May 10, 2026 · Dockside Inn · EPA 8 AM</p>
 
     <div class="form-group">
       <label>Your Name</label>
@@ -378,7 +388,7 @@ body {
       <label>Your Group</label>
       <div class="group-picker">
         <button class="group-btn thrill" id="btnThrill">
-          <span class="gb-icon">🎢</span>Thrill Duo
+          <span class="gb-icon">🎢</span>Thrill Group
         </button>
         <button class="group-btn chill" id="btnChill">
           <span class="gb-icon">🌿</span>Chill Group
@@ -386,15 +396,15 @@ body {
       </div>
     </div>
 
-    <button class="join-btn" id="joinBtn" disabled>Let's Go! 🚀</button>
+    <button class="join-btn" id="joinBtn" disabled>Let's Go! 🦕</button>
   </div>
 </div>
 
 <!-- ══ STICKY HEADER ═════════════════════════════════════════════ -->
 <header class="sticky-header">
   <nav class="day-nav">
-    <a class="day-link active" href="index.html">May 9 🌌 Epic Universe</a>
-    <a class="day-link" href="ioa.html">May 10 🦕 Islands of Adventure</a>
+    <a class="day-link" href="index.html">May 9 🌌 Epic Universe</a>
+    <a class="day-link active" href="ioa.html">May 10 🦕 Islands of Adventure</a>
   </nav>
   <div class="progress-row">
     <div class="progress-stat">
@@ -467,13 +477,7 @@ body {
 <!-- ══ SCRIPT ════════════════════════════════════════════════════ -->
 <script type="module">
 // ================================================================
-//  FIREBASE CONFIG
-//  Replace this object with your config from Firebase Console.
-//  Steps:
-//    1. console.firebase.google.com → Create project
-//    2. Project Settings → Add Web App → copy firebaseConfig
-//    3. Build → Realtime Database → Create database → Test mode
-//    4. Save this file and push to GitHub Pages
+//  FIREBASE CONFIG  (same project as Day 1 — different DB path)
 // ================================================================
 const firebaseConfig = {
   apiKey:            "AIzaSyAI3TxU6pRO9KwBpJACAVcaY2p7T9jgb68",
@@ -486,158 +490,262 @@ const firebaseConfig = {
 };
 
 // ================================================================
-//  CHECKLIST DATA
+//  IOA CHECKLIST DATA
 // ================================================================
 const SECTIONS = [
+
+  // ── S1: PRE-PARK (everyone) ──────────────────────────────────
   {
-    id: 'prePark', time: '7:45 AM', title: 'Pre-Park & Shuttle',
+    id: 'prePark', time: '6:45 AM', title: 'Pre-Park — Breakfast & Gear Up',
     type: 'everyone', land: null,
     items: {
       everyone: [
-        { id: 'e1', text: 'Power-Up Band activated in app', note: 'Do tonight — critical first step!' },
-        { id: 'e2', text: '8:00 AM shuttle departure', note: '15-min intervals from Dockside Hotel' },
+        { id: 'e1', text: 'Breakfast at Pier 8 Market', note: 'Hotel food court · pastries, grab-and-go items, coffee' },
+        { id: 'e2', text: 'Load all tickets in Universal app', note: 'Have tickets showing before leaving the room — no fumbling at turnstile' },
+        { id: 'e3', text: 'Apply sunscreen + pack ponchos', note: 'May heat — 85–92°F expected by early afternoon' },
+        { id: 'e4', text: 'Board 7:10 AM Dockside shuttle', note: 'Bus stop at lobby entrance · free shuttle every ~15 min from 7 AM onward' },
+        { id: 'e5', text: 'Walk CityWalk → security (target 7:35 AM arrival)', note: '~8–10 min walk through CityWalk · remove metals and electronics before scanner' },
+        { id: 'e6', text: 'Through turnstiles → holding area in Port of Entry', note: 'Held until 8 AM EPA · Thrill heads left toward Hogsmeade, Chill turns right toward Seuss — agree now' },
       ]
     }
   },
+
+  // ── S2: ROPE DROP SPLIT (split) ─────────────────────────────
   {
-    id: 'earlyEntry', time: '9:00 AM', title: 'Early Entry Ride Block',
-    type: 'everyone', land: 'nintendo',
-    items: {
-      everyone: [
-        { id: 'e3', text: 'Mine-Cart Madness', note: '⚡ Most critical early ride — 118 min avg all day', land: 'nintendo' },
-        { id: 'e4', text: "Mario Kart: Bowser's Challenge", note: 'Saves 75 min vs. joining at 10 AM', land: 'nintendo' },
-        { id: 'e5', text: "Yoshi's Adventure", note: 'Family ride — perfect for everyone together', land: 'nintendo' },
-      ]
-    }
-  },
-  {
-    id: 'nintendo', time: '10:00 AM', title: 'Nintendo Play Block',
-    type: 'everyone', land: 'nintendo',
-    items: {
-      everyone: [
-        { id: 'e6', text: 'Power-Up Band Key Challenges (5 boss encounters)', note: 'Hidden throughout Nintendo World', land: 'nintendo' },
-        { id: 'e7', text: 'Character Meets — Mario, Luigi, Peach, Toad, DK', note: 'Mobile order lunch for 1:30 PM during this block!', land: 'nintendo' },
-      ]
-    }
-  },
-  {
-    id: 'berk', time: '10:45 AM', title: 'Isle of Berk',
-    type: 'everyone', land: 'berk',
-    items: {
-      everyone: [
-        { id: 'e8', text: "Hiccup's Wing Gliders", note: '⭐ Priority — do first · Family coaster 45 mph, tight 10:45 AM window', land: 'berk' },
-        { id: 'e9', text: "Dragon Racer's Rally", note: '⭐ Priority — do second · Individual pods, control your dragon!', land: 'berk' },
-        { id: 'e10', text: 'Fyre Drill — get absolutely soaked 💦', note: 'Do LAST if time allows — splits group soaking wet right after', land: 'berk' },
-      ]
-    }
-  },
-  {
-    id: 'split', time: '12:00 PM', title: 'The Split',
-    type: 'split', land: null, lands: { thrill: 'dark', chill: 'berk' },
+    id: 'ropeDropSplit', time: '8:00 AM', title: 'Rope Drop — Groups Split',
+    type: 'split', land: null, lands: { thrill: 'hogsmeade', chill: 'seuss' },
     items: {
       thrill: [
-        { id: 't1', text: 'Monsters Unchained: The Frankenstein Experiment', note: '19 min avg wait · Walk to Dark Universe (~8 min)', land: 'dark' },
-        { id: 't2', text: 'Curse of the Werewolf', note: 'Spinning coaster — usually walk-on right after split!', land: 'dark' },
+        { id: 't1', text: 'Walk briskly: Port of Entry → Lost Continent → Hogsmeade', note: '~8 min from gate · walk fast, do not stop · head directly to Hagrid\'s queue', land: 'hogsmeade' },
       ],
       chill: [
-        { id: 'c1', text: 'Toothless Meet at Haddock Paddock', note: 'Do before the 12:30 show — use the 30 min gap · Full-size Toothless animatronic', land: 'berk' },
-        { id: 'c2', text: 'The Untrainable Dragon show', note: 'Catch the 12:30 PM showing — arrives just in time · ~20 min, air-conditioned', land: 'berk' },
+        { id: 'c1', text: 'Turn right from Port of Entry into Seuss Landing', note: 'Nearly empty at 8 AM · stunning morning light · no Harry Potter anywhere nearby', land: 'seuss' },
       ]
     }
   },
+
+  // ── S3: EPA WINDOW (split) ───────────────────────────────────
   {
-    id: 'lunch', time: '1:30 PM', title: 'Lunch Meetup',
+    id: 'epaWindow', time: '8:00–9:30 AM', title: 'EPA Window',
+    type: 'split', land: null, lands: { thrill: 'hogsmeade', chill: 'seuss' },
+    items: {
+      thrill: [
+        { id: 't2', text: 'Hagrid\'s Magical Creatures Motorbike Adventure', note: '⚡ Priority #1 · EPA wait 15–35 min vs. 90–150 min by 10 AM · exit immediately after — no re-ride yet', land: 'hogsmeade' },
+      ],
+      chill: [
+        { id: 'c2', text: 'Cat in the Hat', note: '5–10 min wait · iconic Seuss dark ride', land: 'seuss' },
+        { id: 'c3', text: 'One Fish Two Fish Red Fish Blue Fish', note: 'Interactive water squirt ride · low intensity, fun for all ages', land: 'seuss' },
+        { id: 'c4', text: 'If I Ran the Zoo — walk-through interactive area', note: 'Great for photos · playful Seuss-themed interactive spaces', land: 'seuss' },
+        { id: 'c5', text: 'Mulberry Street stroll + architecture photos', note: 'Whimsical oversized buildings at peak morning light · best photo window of the day', land: 'seuss' },
+        { id: 'c6', text: 'Browse Snookers & Snookers Sweet Candy Cookers', note: 'Themed sweets shop in Seuss Landing', land: 'seuss' },
+      ]
+    }
+  },
+
+  // ── S4: MID-MORNING RIDES (split, chill land-grouped) ────────
+  {
+    id: 'midMorning', time: '9:00–10:30 AM', title: 'Mid-Morning Rides',
+    type: 'split', land: null, lands: { thrill: 'jurassic', chill: 'toon' }, groupByLand: { chill: true },
+    items: {
+      thrill: [
+        { id: 't3', text: 'Jurassic World VelociCoaster', note: '⚡ Priority #2 · 9:00 AM wait 25–45 min · 70 mph, 4 inversions · use single rider if >40 min', land: 'jurassic' },
+        { id: 't4', text: 'The Incredible Hulk Coaster', note: '⚡ Priority #3 · 9:45 AM wait 30–50 min · 0–40 mph in 2 sec, 7 inversions', land: 'marvel' },
+      ],
+      chill: [
+        { id: 'c7', text: 'Toon Lagoon stroll — comic-strip theming + character vignettes', note: 'Walk Comic Strip Lane street art and painted façades', land: 'toon' },
+        { id: 'c8', text: 'Amazing Adventures of Spider-Man', note: '4D dark ride · no drops or inversions · very smooth · 10–20 min wait at 9 AM', land: 'marvel' },
+        { id: 'c9', text: 'Marvel Super Hero Island photos', note: 'Explore the Marvel plaza area and hero murals', land: 'marvel' },
+        { id: 'c10', text: 'Port of Entry shopping + snack at Confisco Grille', note: 'Air-conditioned · broader merchandise than land-specific shops · good pre-meetup window', land: 'entry' },
+      ]
+    }
+  },
+
+  // ── S5: MEETUP #1 + KONG (everyone + meetup) ─────────────────
+  {
+    id: 'meetup1Kong', time: '10:30 AM', title: 'Meetup #1 + Skull Island: Reign of Kong',
+    type: 'everyone', land: 'skull',
+    meetup: {
+      label: '📍 Meet-Up #1 — Marvel Super Hero Island Plaza',
+      loc: 'Near Hulk Coaster entrance / Captain America Diner (has A/C). If running late, the other group waits inside the diner.',
+      mapsUrl: 'https://maps.google.com/?q=Marvel+Super+Hero+Island+Universal+Islands+of+Adventure'
+    },
+    items: {
+      everyone: [
+        { id: 'e7', text: 'Skull Island: Reign of Kong', note: 'Vehicle-based dark ride · no coaster elements · 25–45 min wait · the immersive queue building alone is extraordinary — take your time through it · factor 45–60 min total', land: 'skull' },
+      ]
+    }
+  },
+
+  // ── S6: JURASSIC WALK + MOBILE ORDER (everyone) ──────────────
+  {
+    id: 'jurassicWalk', time: '11:30 AM', title: 'Jurassic World Walk + Mobile Lunch Order',
+    type: 'everyone', land: 'jurassic',
+    items: {
+      everyone: [
+        { id: 'e8', text: 'Walk Jurassic World — iconic gates + Discovery Center', note: 'Dino paddocks, lagoon waterfront path, great group photos at the entrance gates' },
+        { id: 'e9', text: 'Place mobile food order via Universal app NOW', note: '⚡ Open app → Mobile Food Orders → Thunder Falls Terrace → select 11:45–12:00 PM pickup window — bypasses the entire order line' },
+      ]
+    }
+  },
+
+  // ── S7: LUNCH (everyone + meetup) ────────────────────────────
+  {
+    id: 'lunch', time: '12:00 PM', title: 'Lunch',
     type: 'everyone', land: null,
-    meetup: { label: '📍 Meet-Up #1 — Lunch', loc: 'Pizza Moon (Celestial Park) · Spit Fyre Grill (Berk) · Toadstool Café (Nintendo)', mapsUrl: 'https://maps.google.com/?q=Pizza+Moon+Epic+Universe+Universal+Orlando' },
+    meetup: {
+      label: '🍽️ Lunch — Eat Together',
+      loc: 'Thunder Falls Terrace (mobile order) — or — Mythos Restaurant (full-service, A/C cave setting, Lost Continent)',
+      mapsUrl: 'https://maps.google.com/?q=Thunder+Falls+Terrace+Universal+Islands+of+Adventure'
+    },
     items: {
       everyone: [
-        { id: 'e11', text: 'Lunch — everyone back together!', note: '⭐ Pizza Moon (Celestial Park) — equidistant from both groups · Spit Fyre Grill · Toadstool Café' },
+        { id: 'e10', text: 'Thunder Falls Terrace — mobile order pickup', note: 'Rotisserie chicken, ribs, sandwiches · outdoor patio with waterfall views from the Jurassic World flume · fast mobile pickup' },
+        { id: 'e11', text: '— or — Mythos Restaurant (full-service)', note: 'Cave interior · best A/C in the park · Mediterranean menu · book OpenTable or expect 20–30 min walk-in wait' },
       ]
     }
   },
+
+  // ── S8: AFTERNOON SPLIT (split, chill land-grouped) ──────────
   {
-    id: 'afternoon', time: '2:15 PM', title: 'Afternoon Block',
-    type: 'split', land: null, lands: { thrill: 'celestial', chill: 'celestial' }, groupByLand: { chill: true },
+    id: 'afternoonSplit', time: '1:00–3:15 PM', title: 'Afternoon Split — Hogsmeade / Indoor Rest',
+    type: 'split', land: null, lands: { thrill: 'hogsmeade', chill: 'jurassic' }, groupByLand: { chill: true },
     items: {
       thrill: [
-        { id: 't3', text: 'Stardust Racers', note: 'Dual-launch coaster · 62 mph · 31 min avg · Celestial Park', land: 'celestial' },
-        { id: 't7', text: 'Dark Universe mop-up — Monsters or Werewolf re-ride', note: 'Afternoon waits drop · good time to re-hit Dark Universe', land: 'dark' },
-        { id: 't4', text: 'Mine-Cart Madness — single rider re-ride', note: '10-30 min single rider vs. 90+ min standby. Big win.', land: 'nintendo' },
-        { id: 't8', text: "Hiccup's Wing Gliders re-ride", note: 'If skipped morning or want another lap — shorter afternoon wait', land: 'berk' },
+        { id: 't5', text: 'Harry Potter & the Forbidden Journey', note: '⚡ Priority #4 · 60–75 min afternoon wait · Hogwarts castle queue is part of the attraction — don\'t rush through it', land: 'hogsmeade' },
+        { id: 't6', text: 'Flight of the Hippogriff', note: 'Short outdoor coaster with arc over Hogsmeade village · skip if >45 min wait', land: 'hogsmeade' },
+        { id: 't7', text: 'Butterbeer break — rest in Hogsmeade village shade', note: 'Frozen or regular at the Butterbeer cart · take a genuine rest between rides · Hogsmeade village is beautiful to sit in', land: 'hogsmeade' },
       ],
       chill: [
-        { id: 'c4', text: 'Constellation Carousel', note: 'Milky Way themed · 22 min avg · Celestial Park', land: 'celestial' },
-        { id: 'c5', text: 'Astronomica Splash Pad', note: 'Interactive water play — no queue, great afternoon cool-down', land: 'celestial' },
-        { id: 'c7', text: 'Power-Up Band Round 2 — finish remaining bosses', note: 'Head back to Nintendo World · 5 total hidden boss encounters', land: 'nintendo' },
-        { id: 'c8', text: 'Souvenir shopping', note: "1-Up Factory (Nintendo) · Toothless' Treasures · Funky's Fly 'n' Buy", land: 'nintendo' },
-        { id: 'c3', text: 'Viking Training Camp', note: 'Interactive kids area — no queue, Isle of Berk', land: 'berk' },
-        { id: 'c9', text: 'Berk exploration + roaming dragon characters', note: 'Roaming characters appear throughout Berk · walks straight into Mead Hall for dinner', land: 'berk' },
+        { id: 'c11', text: 'Jurassic World Discovery Center', note: 'Free indoor exhibit · interactive dino displays + fossil areas · air-conditioned', land: 'jurassic' },
+        { id: 'c12', text: 'Toon Lagoon Comic Strip Lane gift shops', note: 'Some of the most unique merchandise in the park · browse without rush', land: 'toon' },
+        { id: 'c13', text: 'Cathy\'s Ice Cream snack', note: 'Afternoon treat · Toon Lagoon area cart', land: 'toon' },
+        { id: 'c14', text: 'Shaded rest break — mandatory in May heat', note: '⚠️ 88–92°F peak heat 1–3:30 PM · find shade + A/C · hydrate actively — this is not optional', land: 'toon' },
+        { id: 'c15', text: 'Snack at Croissant Moon Bakery or Mythos bar', note: 'Port of Entry / Lost Continent · pastries, cold drinks, comfortable A/C seating', land: 'lost' },
       ]
     }
   },
+
+  // ── S9: MEETUP #2 + RIVER ADVENTURE + DINO ZONE (everyone + meetup) ──
   {
-    id: 'dinner', time: '5:30 PM', title: 'Dinner Meetup',
+    id: 'meetup2River', time: '3:15 PM', title: 'Meetup #2 + River Adventure + Dino Zone',
+    type: 'everyone', land: 'jurassic',
+    meetup: {
+      label: '📍 Meet-Up #2 — Mythos / Lost Continent',
+      loc: 'Mythos Restaurant entrance · shaded benches + water features · text ahead so neither group waits more than 5–10 min',
+      mapsUrl: 'https://maps.google.com/?q=Mythos+Restaurant+Islands+of+Adventure'
+    },
+    items: {
+      everyone: [
+        { id: 'e12', text: 'Jurassic World River Adventure', note: '85-ft drop water flume · 20–40 min post-3 PM · use free locker for phones and valuables before boarding · expect to get thoroughly soaked', land: 'jurassic' },
+        { id: 'e13', text: 'Pteranodon Flyers', note: 'Gentle suspended hang-glider over Jurassic World · very peaceful, beautiful views · skip if wait >20 min (low capacity)', land: 'jurassic' },
+        { id: 'e14', text: 'Raptor Encounter — photo op with Blue the Raptor', note: 'Live character experience · walk-up, no ticket needed · 10–15 min queue · great photo for both groups', land: 'jurassic' },
+      ]
+    }
+  },
+
+  // ── S10: LATE AFTERNOON SPLIT (split) ────────────────────────
+  {
+    id: 'lateAfternoonSplit', time: '4:30 PM', title: 'Late Afternoon Split',
+    type: 'split', land: null, lands: { thrill: 'hogsmeade', chill: 'seuss' },
+    items: {
+      thrill: [
+        { id: 't8', text: 'Hagrid\'s re-ride — target 4:30–5:00 PM window', note: '⚡ Priority #5 · 40–65 min wait as families begin departing · if >75 min, skip and return at 7:30 PM near park close', land: 'hogsmeade' },
+      ],
+      chill: [
+        { id: 'c16', text: 'Seuss Landing farewell loop', note: 'Re-ride Cat in the Hat + One Fish Two Fish (under 10 min each) · warm golden afternoon light for final photos', land: 'seuss' },
+        { id: 'c17', text: 'Port of Entry shopping — best window of the day', note: 'Islands of Adventure Trading Company · Ocean Trader Market · least crowded shopping time · browse for keepsakes', land: 'entry' },
+      ]
+    }
+  },
+
+  // ── S11: DINNER MEETUP (everyone + meetup) ───────────────────
+  {
+    id: 'dinnerMeetup', time: '5:30 PM', title: 'Dinner Meetup',
     type: 'everyone', land: null,
-    meetup: { label: '📍 Meet-Up #2 — Dinner', loc: 'Mead Hall (Berk) · Das Stakehaus (Dark Universe) · The Blue Dragon Pan-Asian', mapsUrl: 'https://maps.google.com/?q=Mead+Hall+Epic+Universe+Universal+Orlando' },
+    meetup: {
+      label: '📍 Meet-Up #3 — Jurassic Waterfront',
+      loc: 'Jurassic World waterfront near Discovery Center · lagoon backdrop for final group photos · both groups arrive by 5:30',
+      mapsUrl: 'https://maps.google.com/?q=Thunder+Falls+Terrace+Universal+Islands+of+Adventure'
+    },
     items: {
       everyone: [
-        { id: 'e12', text: 'Dinner — everyone back together!', note: 'Mead Hall has the best group atmosphere · Das Stakehaus · Blue Dragon' },
+        { id: 'e15', text: 'Place mobile dinner order at 5:15 PM', note: 'Thunder Falls Terrace · select 5:30–5:45 PM pickup window · place before arriving at the meetup' },
+        { id: 'e16', text: 'Dinner — finish eating by 6:00 PM sharp', note: 'Thunder Falls Terrace (mobile order, fast) · Mythos at dusk (cave lighting is magical) · Three Broomsticks (HP great-hall setting, Thrill-proximate) · done by 6 PM for best night ride windows' },
       ]
     }
   },
+
+  // ── S12: NIGHT RIDE FINAL SPLIT (split) ──────────────────────
   {
-    id: 'together630', time: '6:30 PM', title: 'Evening Together — Nintendo World',
-    type: 'everyone', land: 'nintendo',
+    id: 'nightSplit', time: '6:30 PM', title: 'Night Ride — Final Split',
+    type: 'split', land: null, lands: { thrill: 'jurassic', chill: 'entry' },
     items: {
-      everyone: [
-        { id: 'e14', text: 'Mine-Cart Madness — evening re-ride', note: 'Waits drop significantly after 6 PM · best window of the day', land: 'nintendo' },
-        { id: 'e15', text: "Mario Kart: Bowser's Challenge — beat your score", note: 'Evening crowds thin out · try to top the morning run', land: 'nintendo' },
-        { id: 'e16', text: "Yoshi's Adventure — final lap together", note: 'Low wait, good group closer before the 8 PM fountain meetup', land: 'nintendo' },
-      ]
-    }
-  },
-  {
-    id: 'evening', time: '8:00 PM', title: 'Evening & Final Sprint',
-    type: 'split', land: null, lands: { thrill: 'potter', chill: 'nintendo' },
-    meetup: { label: '📍 Meet-Up #3 — Celestial Park Fountain', loc: 'Confirm 9:30 PM shuttle plan here. Final meetup before everyone wraps up.', mapsUrl: 'https://maps.google.com/?q=Epic+Universe+Universal+Orlando+Resort' },
-    items: {
-      everyone: [
-        { id: 'e13', text: '8:00 PM meetup at Celestial Park Fountain', note: 'Confirm shuttle plan. Meet-up #3 of 4.', land: 'celestial' },
-      ],
       thrill: [
-        { id: 't5', text: 'Battle at the Ministry — queue at 8:45 PM', note: '⚡ CRITICAL: wait drops from 110 → 53 min at 9 PM (57% less based on 950k samples!)', land: 'potter' },
-        { id: 't6', text: 'Stardust Racers final lap', note: 'Near walk-on at night — if time allows after Ministry', land: 'celestial' },
+        { id: 't9', text: 'VelociCoaster night ride — queue by 6:45–7:00 PM', note: '⚡ Signature closer · 20–40 min evening wait · park lights reflecting on the lagoon below · last entry 7:50 PM', land: 'jurassic' },
+        { id: 't10', text: 'Incredible Hulk Coaster re-ride (optional)', note: 'If under 25 min wait after exiting VelociCoaster', land: 'marvel' },
+        { id: 't11', text: 'Hagrid\'s park-close window (optional)', note: 'Target 7:30 PM entry if not done at 4:30 · waits drop to 30–45 min as families exit · last entry 7:50 PM', land: 'hogsmeade' },
       ],
       chill: [
-        { id: 'c6', text: "Mario Kart re-ride — beat your morning score", note: 'Evening waits drop significantly · Nintendo World', land: 'nintendo' },
+        { id: 'c18', text: 'Evening park walk — Port of Entry + Seuss Landing lit at night', note: 'Park is beautifully illuminated at dusk · especially photogenic after dark · slow leisurely lap', land: 'entry' },
+        { id: 'c19', text: 'Final souvenirs — Islands of Adventure Trading Company', note: 'Best pre-close shopping window before the closing crowd surge', land: 'entry' },
+        { id: 'c20', text: 'Dessert or evening treat', note: 'Croissant Moon Bakery · Cathy\'s Ice Cream · sweet send-off to end the trip', land: 'entry' },
+      ]
+    }
+  },
+
+  // ── S13: FINAL MEETUP + EXIT (everyone + meetup) ─────────────
+  {
+    id: 'finalMeetup', time: '7:50 PM', title: 'Final Meetup + Exit',
+    type: 'everyone', land: null,
+    meetup: {
+      label: '📍 Final Meetup — Port of Entry',
+      loc: 'Port of Entry entrance turnstiles · Thrill Group begin walking by 7:50 PM latest · everyone passes through here to exit',
+      mapsUrl: 'https://maps.google.com/?q=Islands+of+Adventure+Universal+Orlando'
+    },
+    items: {
+      everyone: [
+        { id: 'e17', text: 'Walk out through CityWalk together', note: '~8–10 min · CityWalk shops + restaurants stay open later than the park — browse if desired' },
+        { id: 'e18', text: 'Board Dockside shuttle home', note: 'Tip: leave 10 min early OR spend 30 min in CityWalk to let the post-close shuttle crowd clear · buses run every 15 min until 2 AM' },
       ]
     }
   },
 ];
 
 const MEETUPS = [
-  { h: 13, m: 30, label: 'Lunch Meetup at 1:30 PM',    loc: 'Pizza Moon (Celestial Park)' },
-  { h: 17, m: 30, label: 'Dinner Meetup at 5:30 PM',   loc: 'Mead Hall (Isle of Berk)' },
-  { h: 20, m:  0, label: 'Fountain Meetup at 8:00 PM', loc: 'Celestial Park Fountain' },
-  { h: 21, m: 30, label: 'Shuttle Home at 9:30 PM',    loc: 'Dockside Hotel Shuttle Stop' },
+  { h: 10, m: 30, label: 'Meetup #1 — Marvel Plaza at 10:30 AM',      loc: 'Marvel Super Hero Island plaza (near Hulk Coaster)' },
+  { h: 15, m: 15, label: 'Meetup #2 — Mythos / Lost Continent 3:15 PM', loc: 'Mythos Restaurant entrance, Lost Continent' },
+  { h: 17, m: 30, label: 'Dinner Meetup — Jurassic Waterfront 5:30 PM', loc: 'Jurassic World waterfront near Discovery Center' },
+  { h: 19, m: 50, label: 'Final Meetup — Port of Entry 7:50 PM',        loc: 'Port of Entry entrance turnstiles' },
 ];
 
-const LANDS = { nintendo: 'Nintendo World', berk: 'Isle of Berk', dark: 'Dark Universe', celestial: 'Celestial Park', potter: 'Ministry of Magic' };
+const LANDS = {
+  seuss:     'Seuss Landing',
+  marvel:    'Marvel Super Hero Island',
+  toon:      'Toon Lagoon',
+  skull:     'Skull Island',
+  jurassic:  'Jurassic World',
+  lost:      'The Lost Continent',
+  hogsmeade: 'Wizarding World / Hogsmeade',
+  entry:     'Port of Entry',
+};
 
 const LAND_MAPS = {
-  nintendo:  'https://maps.google.com/?q=Nintendo+World+Epic+Universe+Universal+Orlando',
-  berk:      'https://maps.google.com/?q=Isle+of+Berk+Epic+Universe+Universal+Orlando',
-  dark:      'https://maps.google.com/?q=Dark+Universe+Epic+Universe+Universal+Orlando',
-  celestial: 'https://maps.google.com/?q=Celestial+Park+Epic+Universe+Universal+Orlando',
-  potter:    'https://maps.google.com/?q=Ministry+of+Magic+Epic+Universe+Universal+Orlando',
+  seuss:     'https://maps.google.com/?q=Seuss+Landing+Universal+Islands+of+Adventure+Orlando',
+  marvel:    'https://maps.google.com/?q=Marvel+Super+Hero+Island+Universal+Islands+of+Adventure',
+  toon:      'https://maps.google.com/?q=Toon+Lagoon+Universal+Islands+of+Adventure+Orlando',
+  skull:     'https://maps.google.com/?q=Skull+Island+Reign+of+Kong+Universal+Islands+of+Adventure',
+  jurassic:  'https://maps.google.com/?q=Jurassic+World+Universal+Islands+of+Adventure+Orlando',
+  lost:      'https://maps.google.com/?q=The+Lost+Continent+Universal+Islands+of+Adventure',
+  hogsmeade: 'https://maps.google.com/?q=Wizarding+World+Harry+Potter+Hogsmeade+Universal+Orlando',
+  entry:     'https://maps.google.com/?q=Islands+of+Adventure+Universal+Orlando+Resort',
 };
 
 const LOCATIONS = [
-  { key: 'nintendo',  label: 'Nintendo',  emoji: '🎮', color: '#ff6b6b' },
-  { key: 'berk',      label: 'Berk',      emoji: '🐉', color: '#4be87a' },
-  { key: 'dark',      label: 'Dark Univ', emoji: '🌙', color: '#b56bf5' },
-  { key: 'celestial', label: 'Celestial', emoji: '⭐', color: '#4B9CE8' },
-  { key: 'potter',    label: 'Ministry',  emoji: '🪄', color: '#E8B84B' },
+  { key: 'seuss',     label: 'Seuss',     emoji: '🐱', color: '#f97316' },
+  { key: 'marvel',    label: 'Marvel',    emoji: '⚡', color: '#e84b4b' },
+  { key: 'jurassic',  label: 'Jurassic',  emoji: '🦕', color: '#22c55e' },
+  { key: 'hogsmeade', label: 'Hogsmeade', emoji: '🧙', color: '#9b4be8' },
+  { key: 'lost',      label: 'Lost Cont', emoji: '🏛️', color: '#d4a96a' },
   { key: 'shuttle',   label: 'Shuttle',   emoji: '🚌', color: '#888888' },
 ];
 
@@ -659,7 +767,7 @@ const CHILL_IDS  = groupItemIds('chill');
 // ================================================================
 let myName  = null;
 let myGroup = null;
-let allUsers = {};       // { [name]: { group, items: { [id]: true } } }
+let allUsers = {};
 let db, fbRef, fbSet, fbRemove, fbOnValue;
 let firebaseReady = false;
 
@@ -671,7 +779,7 @@ const isConfigured = !firebaseConfig.apiKey.startsWith('YOUR_');
 if (isConfigured) {
   document.getElementById('setupNotice').classList.add('hidden');
   try {
-    const { initializeApp }                         = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js');
+    const { initializeApp }                          = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js');
     const { getDatabase, ref, set, remove, onValue } = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js');
     const app = initializeApp(firebaseConfig);
     db = getDatabase(app);
@@ -703,10 +811,10 @@ joinBtn.addEventListener('click', async () => {
   const name = nameInput.value.trim();
   if (!name || !myGroup) return;
   myName = name;
-  localStorage.setItem('epicTrip_name', name);
-  localStorage.setItem('epicTrip_group', myGroup);
+  localStorage.setItem('ioaTrip_name', name);
+  localStorage.setItem('ioaTrip_group', myGroup);
   if (firebaseReady) {
-    await fbSet(fbRef(db, `epic-universe-may9/users/${myName}`), { group: myGroup, items: {} });
+    await fbSet(fbRef(db, `islands-of-adventure-may10/users/${myName}`), { group: myGroup, items: {} });
   }
   document.getElementById('modal').classList.add('hidden');
   document.getElementById('resetPanel').classList.remove('hidden');
@@ -721,8 +829,8 @@ joinBtn.addEventListener('click', async () => {
 // ================================================================
 //  RESTORE SESSION FROM LOCALSTORAGE
 // ================================================================
-const savedName  = localStorage.getItem('epicTrip_name');
-const savedGroup = localStorage.getItem('epicTrip_group');
+const savedName  = localStorage.getItem('ioaTrip_name');
+const savedGroup = localStorage.getItem('ioaTrip_group');
 
 if (savedName && savedGroup) {
   myName = savedName; myGroup = savedGroup;
@@ -748,7 +856,7 @@ if (savedName && savedGroup) {
 // ================================================================
 function subscribeToUsers() {
   if (!firebaseReady) return;
-  fbOnValue(fbRef(db, 'epic-universe-may9/users'), snap => {
+  fbOnValue(fbRef(db, 'islands-of-adventure-may10/users'), snap => {
     allUsers = snap.val() || {};
     updateDashboard();
     updateCheckboxes();
@@ -775,12 +883,11 @@ async function toggleItem(itemId, itemGroup) {
   updateCheckboxes();
 
   if (firebaseReady) {
-    const itemRef = fbRef(db, `epic-universe-may9/users/${myName}/items/${itemId}`);
+    const itemRef = fbRef(db, `islands-of-adventure-may10/users/${myName}/items/${itemId}`);
     if (nowChecked) await fbSet(itemRef, true);
     else            await fbRemove(itemRef);
   } else {
-    // Offline: persist to localStorage
-    localStorage.setItem('epicTrip_offline', JSON.stringify(allUsers[myName].items));
+    localStorage.setItem('ioaTrip_offline', JSON.stringify(allUsers[myName].items));
   }
 }
 
@@ -800,14 +907,14 @@ function renderLocationPicker() {
     btn.addEventListener('click', async () => {
       const key = btn.dataset.key;
       const current = allUsers[myName]?.location ?? null;
-      const newLoc = current === key ? null : key;   // toggle off if already active
+      const newLoc = current === key ? null : key;
       if (!allUsers[myName]) allUsers[myName] = { group: myGroup, items: {} };
       if (newLoc) allUsers[myName].location = newLoc;
       else        delete allUsers[myName].location;
       renderLocationPicker();
       updateDashboard();
       if (firebaseReady) {
-        const locRef = fbRef(db, `epic-universe-may9/users/${myName}/location`);
+        const locRef = fbRef(db, `islands-of-adventure-may10/users/${myName}/location`);
         if (newLoc) await fbSet(locRef, newLoc);
         else        await fbRemove(locRef);
       }
@@ -836,7 +943,6 @@ function renderTimeline() {
     }
   }
 
-  // Event delegation for item clicks
   tl.addEventListener('click', e => {
     const card = e.target.closest('.item-card');
     if (!card || card.classList.contains('readonly')) return;
@@ -864,14 +970,13 @@ function buildSection(s) {
   if (s.type === 'everyone') {
     h += buildItemList(s.items.everyone, 'everyone');
   } else {
-    // Everyone items at top (e.g. e13)
     if (s.items.everyone?.length) h += buildItemList(s.items.everyone, 'everyone');
 
     const thrillLand = s.lands?.thrill;
     const chillLand  = s.lands?.chill;
     h += '<div class="split-grid">';
     h += `<div class="split-col">
-      <div class="split-col-head thrill">🎢 Thrill Duo${thrillLand ? ` <a class="section-dir-link" href="${LAND_MAPS[thrillLand]}" target="_blank" rel="noopener" style="margin-left:4px">📍 ${LANDS[thrillLand]}</a>` : ''}</div>
+      <div class="split-col-head thrill">🎢 Thrill Group${thrillLand ? ` <a class="section-dir-link" href="${LAND_MAPS[thrillLand]}" target="_blank" rel="noopener" style="margin-left:4px">📍 ${LANDS[thrillLand]}</a>` : ''}</div>
       ${buildItemList(s.items.thrill || [], 'thrill', true)}
     </div>`;
     h += `<div class="split-col">
@@ -885,7 +990,6 @@ function buildSection(s) {
 }
 
 function buildLandGroupedList(items, itemGroup) {
-  // Preserve land order as they appear in the items array
   const order = [];
   const groups = {};
   for (const item of items) {
@@ -907,7 +1011,7 @@ function buildLandGroupedList(items, itemGroup) {
 function buildItemList(items, itemGroup, inline = false) {
   const canCheck = !myGroup || itemGroup === 'everyone' || itemGroup === myGroup;
   const cls = canCheck ? '' : ' readonly';
-  let h = `<div class="items-list${inline ? '' : ''}">`;
+  let h = `<div class="items-list">`;
   for (const item of items) {
     h += `<div class="item-card ${itemGroup}${cls}" data-id="${item.id}" data-group="${itemGroup}" id="card-${item.id}">
       <div class="checkbox" id="cb-${item.id}"><span class="checkmark">✓</span></div>
@@ -942,7 +1046,6 @@ function updateCheckboxes() {
       cb.classList.toggle('checked', myChecked);
       card.classList.toggle('done', myChecked);
 
-      // Show who else checked this item
       if (chk) {
         const checkers = Object.entries(allUsers)
           .filter(([, u]) => u?.items?.[item.id] === true)
@@ -959,7 +1062,6 @@ function updateCheckboxes() {
 //  PROGRESS DASHBOARD
 // ================================================================
 function updateDashboard() {
-  // My progress
   if (myName && myGroup) {
     const ids     = myGroup === 'thrill' ? THRILL_IDS : CHILL_IDS;
     const checked = ids.filter(id => allUsers[myName]?.items?.[id]).length;
@@ -968,7 +1070,6 @@ function updateDashboard() {
     document.getElementById('myBar').style.width = `${pct}%`;
   }
 
-  // Thrill group
   const thrillUsers = Object.values(allUsers).filter(u => u.group === 'thrill');
   if (thrillUsers.length) {
     const avg = Math.round(
@@ -979,7 +1080,6 @@ function updateDashboard() {
     document.getElementById('thrillBar').style.width = `${avg}%`;
   }
 
-  // Chill group
   const chillUsers = Object.values(allUsers).filter(u => u.group === 'chill');
   if (chillUsers.length) {
     const avg = Math.round(
@@ -990,7 +1090,6 @@ function updateDashboard() {
     document.getElementById('chillBar').style.width = `${avg}%`;
   }
 
-  // Online users
   const row   = document.getElementById('onlineRow');
   const users = Object.entries(allUsers);
   if (!users.length) {
@@ -1018,8 +1117,6 @@ function updateMeetupBanner() {
   if (!next) { banner.classList.add('hidden'); return; }
 
   banner.classList.remove('hidden');
-  const hh = next.h > 12 ? next.h - 12 : (next.h === 0 ? 12 : next.h);
-  const ap = next.h >= 12 ? 'PM' : 'AM';
   document.getElementById('meetupLabel').textContent = next.label;
   document.getElementById('meetupDetail').textContent = next.loc;
 
@@ -1030,7 +1127,7 @@ function updateMeetupBanner() {
 //  OFFLINE RESTORE (no Firebase)
 // ================================================================
 if (!firebaseReady && myName) {
-  const saved = localStorage.getItem('epicTrip_offline');
+  const saved = localStorage.getItem('ioaTrip_offline');
   if (saved) {
     allUsers[myName] = { group: myGroup, items: JSON.parse(saved) };
     updateCheckboxes();
@@ -1048,33 +1145,30 @@ function initials(name) {
 // ================================================================
 //  RESET HANDLERS
 // ================================================================
-// Checkbox enables/disables full reset
 document.getElementById('resetAllCheck').addEventListener('change', e => {
   document.getElementById('resetAllBtn').disabled = !e.target.checked;
 });
 
-// Reset my progress only — clears current user's items
 document.getElementById('resetMineBtn').addEventListener('click', async () => {
   if (!myName || !confirm('Reset your own progress?')) return;
   if (firebaseReady) {
-    await fbSet(fbRef(db, `epic-universe-may9/users/${myName}/items`), {});
-    await fbRemove(fbRef(db, `epic-universe-may9/users/${myName}/location`));
+    await fbSet(fbRef(db, `islands-of-adventure-may10/users/${myName}/items`), {});
+    await fbRemove(fbRef(db, `islands-of-adventure-may10/users/${myName}/location`));
   }
   if (allUsers[myName]) { allUsers[myName].items = {}; delete allUsers[myName].location; }
-  localStorage.removeItem('epicTrip_offline');
+  localStorage.removeItem('ioaTrip_offline');
   updateDashboard();
   updateCheckboxes();
   renderLocationPicker();
   showToast('✓ Your progress reset');
 });
 
-// Reset all users — wipes entire Firebase node, returns to onboarding
 document.getElementById('resetAllBtn').addEventListener('click', async () => {
   if (!confirm('Reset ALL users? This wipes everyone\'s progress.')) return;
-  if (firebaseReady) await fbRemove(fbRef(db, 'epic-universe-may9/users'));
-  localStorage.removeItem('epicTrip_name');
-  localStorage.removeItem('epicTrip_group');
-  localStorage.removeItem('epicTrip_offline');
+  if (firebaseReady) await fbRemove(fbRef(db, 'islands-of-adventure-may10/users'));
+  localStorage.removeItem('ioaTrip_name');
+  localStorage.removeItem('ioaTrip_group');
+  localStorage.removeItem('ioaTrip_offline');
   allUsers = {};
   myName = null; myGroup = null;
   updateDashboard();
@@ -1095,7 +1189,6 @@ function showToast(msg) {
   toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
 }
 
-// Kick off meetup banner
 updateMeetupBanner();
 </script>
 </body>
