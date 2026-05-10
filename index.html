@@ -267,6 +267,27 @@ body {
 }
 .toast.show { transform: translateX(-50%) translateY(0); }
 
+/* ── DRAG REORDER ───────────────────────────────────── */
+.drag-handle {
+  min-width: 44px; min-height: 44px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  touch-action: none; cursor: grab; align-self: center;
+  opacity: 0.25; transition: opacity .15s;
+}
+.drag-handle:active { cursor: grabbing; opacity: 0.7; }
+.drag-handle::before {
+  content: '';
+  display: block;
+  width: 12px; height: 14px;
+  background-image: radial-gradient(circle, currentColor 1.5px, transparent 1.5px);
+  background-size: 5px 5px;
+}
+.item-card.readonly .drag-handle { display: none; }
+.item-card.dragging {
+  opacity: 0.45; background: var(--bg3);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+}
+
 /* ── LOCATION PICKER ────────────────────────────────── */
 .loc-picker {
   background: var(--bg2); border-bottom: 1px solid var(--border);
@@ -455,6 +476,7 @@ body {
   <div class="reset-row">
     <button class="reset-btn mine" id="resetMineBtn">↺ Reset My Progress</button>
     <button class="reset-btn all" id="resetAllBtn" disabled>↺ Reset All Users</button>
+    <button class="reset-btn" id="resetOrderBtn" style="border-color:var(--gold);color:var(--gold)">↺ Reset Item Order</button>
     <label class="reset-lock">
       <input type="checkbox" id="resetAllCheck"> Enable full reset
     </label>
@@ -660,6 +682,8 @@ const CHILL_IDS  = groupItemIds('chill');
 let myName  = null;
 let myGroup = null;
 let allUsers = {};       // { [name]: { group, items: { [id]: true } } }
+let sectionOrder = {};   // { "{sectionId}__{group}": [id, id, ...] }
+let lastDragWasMove = false;
 let db, fbRef, fbSet, fbRemove, fbOnValue;
 let firebaseReady = false;
 
@@ -754,6 +778,17 @@ function subscribeToUsers() {
     updateCheckboxes();
     renderLocationPicker();
   });
+  fbOnValue(fbRef(db, 'epic-universe-may9/sectionOrder'), snap => {
+    const raw = snap.val() || {};
+    const incoming = {};
+    for (const [k, v] of Object.entries(raw)) {
+      incoming[k] = Array.isArray(v) ? v : Object.values(v);
+    }
+    if (JSON.stringify(incoming) !== JSON.stringify(sectionOrder)) {
+      sectionOrder = incoming;
+      if (myName) { renderTimeline(); updateCheckboxes(); }
+    }
+  });
 }
 
 // ================================================================
@@ -818,6 +853,14 @@ function renderLocationPicker() {
 // ================================================================
 //  RENDER TIMELINE
 // ================================================================
+function handleTimelineClick(e) {
+  if (lastDragWasMove) return;
+  const card = e.target.closest('.item-card');
+  if (!card || card.classList.contains('readonly')) return;
+  if (e.target.closest('.drag-handle')) return;
+  toggleItem(card.dataset.id, card.dataset.group);
+}
+
 function renderTimeline() {
   const tl = document.getElementById('timeline');
   tl.innerHTML = '';
@@ -827,6 +870,7 @@ function renderTimeline() {
     const el = document.createElement('div');
     el.className = 'section';
     el.id = `sec-${s.id}`;
+    el.dataset.section = s.id;
     el.innerHTML = buildSection(s);
     tl.appendChild(el);
     if (i < SECTIONS.length - 1) {
@@ -836,12 +880,8 @@ function renderTimeline() {
     }
   }
 
-  // Event delegation for item clicks
-  tl.addEventListener('click', e => {
-    const card = e.target.closest('.item-card');
-    if (!card || card.classList.contains('readonly')) return;
-    toggleItem(card.dataset.id, card.dataset.group);
-  });
+  tl.removeEventListener('click', handleTimelineClick);
+  tl.addEventListener('click', handleTimelineClick);
 }
 
 function buildSection(s) {
@@ -862,21 +902,21 @@ function buildSection(s) {
   }
 
   if (s.type === 'everyone') {
-    h += buildItemList(s.items.everyone, 'everyone');
+    h += buildItemList(s.items.everyone, 'everyone', s.id);
   } else {
     // Everyone items at top (e.g. e13)
-    if (s.items.everyone?.length) h += buildItemList(s.items.everyone, 'everyone');
+    if (s.items.everyone?.length) h += buildItemList(s.items.everyone, 'everyone', s.id);
 
     const thrillLand = s.lands?.thrill;
     const chillLand  = s.lands?.chill;
     h += '<div class="split-grid">';
     h += `<div class="split-col">
       <div class="split-col-head thrill">🎢 Thrill Duo${thrillLand ? ` <a class="section-dir-link" href="${LAND_MAPS[thrillLand]}" target="_blank" rel="noopener" style="margin-left:4px">📍 ${LANDS[thrillLand]}</a>` : ''}</div>
-      ${buildItemList(s.items.thrill || [], 'thrill', true)}
+      ${buildItemList(s.items.thrill || [], 'thrill', s.id)}
     </div>`;
     h += `<div class="split-col">
       <div class="split-col-head chill">🌿 Chill Group${!s.groupByLand?.chill && chillLand ? ` <a class="section-dir-link" href="${LAND_MAPS[chillLand]}" target="_blank" rel="noopener" style="margin-left:4px">📍 ${LANDS[chillLand]}</a>` : ''}</div>
-      ${s.groupByLand?.chill ? buildLandGroupedList(s.items.chill || [], 'chill') : buildItemList(s.items.chill || [], 'chill', true)}
+      ${s.groupByLand?.chill ? buildLandGroupedList(s.items.chill || [], 'chill') : buildItemList(s.items.chill || [], 'chill', s.id)}
     </div>`;
     h += '</div>';
   }
@@ -899,16 +939,32 @@ function buildLandGroupedList(items, itemGroup) {
         <span class="land-badge land-${landKey}">${LANDS[landKey] || landKey}</span>
         ${LAND_MAPS[landKey] ? `<a class="section-dir-link" href="${LAND_MAPS[landKey]}" target="_blank" rel="noopener">📍 Directions</a>` : ''}
       </div>
-      ${buildItemList(groups[landKey], itemGroup, true)}
+      ${buildItemList(groups[landKey], itemGroup, null)}
     </div>
   `).join('');
 }
 
-function buildItemList(items, itemGroup, inline = false) {
+function buildItemList(items, itemGroup, sectionId) {
   const canCheck = !myGroup || itemGroup === 'everyone' || itemGroup === myGroup;
   const cls = canCheck ? '' : ' readonly';
-  let h = `<div class="items-list${inline ? '' : ''}">`;
-  for (const item of items) {
+
+  let orderedItems = items;
+  if (sectionId) {
+    const key = `${sectionId}__${itemGroup}`;
+    const custom = sectionOrder[key];
+    if (custom) {
+      const map = Object.fromEntries(items.map(i => [i.id, i]));
+      orderedItems = [
+        ...custom.map(id => map[id]).filter(Boolean),
+        ...items.filter(i => !custom.includes(i.id)),
+      ];
+    }
+  }
+
+  const handle = canCheck ? `<div class="drag-handle" aria-label="Drag to reorder"></div>` : '';
+
+  let h = `<div class="items-list" data-group="${itemGroup}">`;
+  for (const item of orderedItems) {
     h += `<div class="item-card ${itemGroup}${cls}" data-id="${item.id}" data-group="${itemGroup}" id="card-${item.id}">
       <div class="checkbox" id="cb-${item.id}"><span class="checkmark">✓</span></div>
       <div class="item-body">
@@ -917,6 +973,7 @@ function buildItemList(items, itemGroup, inline = false) {
         ${item.land && LAND_MAPS[item.land] ? `<a class="item-land-link" href="${LAND_MAPS[item.land]}" target="_blank" rel="noopener">📍 ${LANDS[item.land]}</a>` : ''}
         <div class="item-checkers" id="chk-${item.id}"></div>
       </div>
+      ${handle}
     </div>`;
   }
   return h + '</div>';
@@ -1094,6 +1151,88 @@ function showToast(msg) {
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
 }
+
+// ================================================================
+//  DRAG TO REORDER
+// ================================================================
+let drag = null;
+
+function initDragReorder() {
+  document.addEventListener('touchstart', onDragStart, { passive: true });
+}
+
+function onDragStart(e) {
+  const handle = e.target.closest('.drag-handle');
+  if (!handle) return;
+  const card = handle.closest('.item-card');
+  if (!card || card.classList.contains('readonly')) return;
+  const list = card.closest('.items-list');
+  if (!list) return;
+  drag = { card, list, startY: e.touches[0].clientY, moved: false };
+  card.classList.add('dragging');
+  document.addEventListener('touchmove',   onDragMove,   { passive: false });
+  document.addEventListener('touchend',    onDragEnd,    { passive: true  });
+  document.addEventListener('touchcancel', onDragCancel, { passive: true  });
+}
+
+function onDragMove(e) {
+  if (!drag) return;
+  const y = e.touches[0].clientY;
+  if (!drag.moved && Math.abs(y - drag.startY) < 6) return;
+  drag.moved = true;
+  e.preventDefault();
+  const siblings = [...drag.list.querySelectorAll('.item-card:not(.dragging)')];
+  let placed = false;
+  for (const sib of siblings) {
+    const r = sib.getBoundingClientRect();
+    if (y < r.top + r.height / 2) { drag.list.insertBefore(drag.card, sib); placed = true; break; }
+  }
+  if (!placed) drag.list.appendChild(drag.card);
+}
+
+function onDragEnd() {
+  if (!drag) return;
+  drag.card.classList.remove('dragging');
+  if (drag.moved) {
+    lastDragWasMove = true;
+    setTimeout(() => { lastDragWasMove = false; }, 200);
+    const newOrder  = [...drag.list.querySelectorAll('.item-card')].map(c => c.dataset.id);
+    const sectionId = drag.list.closest('[data-section]')?.dataset.section;
+    const group     = drag.list.dataset.group;
+    if (sectionId && group) saveItemOrder(sectionId, group, newOrder);
+  }
+  cleanupDragListeners(); drag = null;
+}
+
+function onDragCancel() {
+  if (drag) drag.card.classList.remove('dragging');
+  cleanupDragListeners(); drag = null;
+}
+
+function cleanupDragListeners() {
+  document.removeEventListener('touchmove',   onDragMove);
+  document.removeEventListener('touchend',    onDragEnd);
+  document.removeEventListener('touchcancel', onDragCancel);
+}
+
+async function saveItemOrder(sectionId, group, order) {
+  const key = `${sectionId}__${group}`;
+  sectionOrder[key] = order;
+  if (firebaseReady) await fbSet(fbRef(db, `epic-universe-may9/sectionOrder/${key}`), order);
+}
+
+async function resetSectionOrder() {
+  sectionOrder = {};
+  if (firebaseReady) await fbRemove(fbRef(db, 'epic-universe-may9/sectionOrder'));
+  renderTimeline(); updateCheckboxes();
+}
+
+document.getElementById('resetOrderBtn').addEventListener('click', () => {
+  resetSectionOrder();
+  showToast('↺ Item order restored');
+});
+
+initDragReorder();
 
 // Kick off meetup banner
 updateMeetupBanner();
